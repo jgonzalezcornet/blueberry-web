@@ -1,11 +1,7 @@
 <template>
-  <v-app>
-    <v-main>
-      <router-view />
-    </v-main>
-  </v-app>
+  <h1 class="font-varelaround text-3xl font-bold tracking-wide"> Blueberry muchachoss</h1>
 </template>
 
-<script lang="ts" setup>
+<script setup>
   //
 </script>
