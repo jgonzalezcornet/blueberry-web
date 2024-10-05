@@ -1,0 +1,16 @@
+TODO'S:
+- que el texto del footer quede bien centrado (el problema es que su width es toda la pantalla y no solo la del cuerpo sin contar
+el side menu, por ende está centrado pero con respecto a eso nomás, ver cómo acomodar el width)
+
+- las paginas de soporte y cerrar sesion no van pero las puse para que no salten errores en el router
+
+- los margenes de las cosas (ej: main zone, logo de la app, boton del perfil) estan hardcodeados en pixeles, nose si eso esta
+bien o hace que no sea del todo responsive
+
+- me molesta que haya un mini espacio entre el boton de navegacion de inicio y el app info pero nose si lo puedo sacar
+
+- siento que hay mucho espacio entre el icono y el texto en los botones de navegacion
+
+- ver de arreglar bien los colores de los iconos en los botones de navegacion (inactive y active)
+
+- que los botones de soporte y cerrar sesion esten abajo del todo
