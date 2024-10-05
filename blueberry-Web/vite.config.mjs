@@ -11,6 +11,10 @@ import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 
+// Import TailwindCSS
+import tailwindcss from 'tailwindcss'
+import autoprefixer from 'autoprefixer'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [

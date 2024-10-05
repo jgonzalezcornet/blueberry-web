@@ -2,24 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.bg-custom {
-    position:relative;
-    overflow:hidden;
-    height: 100vh;
+.font-varela {
+    font-family: 'Varela Round', sans-serif; /* Fallback to sans-serif if the font doesn't load */
 }
 
-.bg-custom::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('https://media.istockphoto.com/id/488253130/vector/business-seamless-pattern-vector-background.jpg?s=612x612&w=0&k=20&c=O0gqacOysdDQqCsIH6mdHj0VKRcNsWjxR_raNyvRGmk='); /* Path to your tile image */
-    background-repeat: repeat; /* Repeat the image */
-    background-size: 250px; /* Size of each tile */
-    width: 100%; /* Set width */
-    height: 100vh; /* Set height */
-    opacity: 0.3;
-    z-index: 0;
-}
