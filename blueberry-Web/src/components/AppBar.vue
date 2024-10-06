@@ -20,16 +20,16 @@
 <style>
 
 .v-icon {
-  margin-right: 0px; /* Adjust spacing between the icon and text */
+  margin-right: 0px;
 }
 
 .perfil-btn {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0; /* Remove any extra padding from the button */
-  min-width: 0; /* Ensure the button doesn't expand too much */
-  margin-right: 20px !important; /* Adjust spacing between the button and the right edge */
+  padding: 0;
+  min-width: 0;
+  margin-right: 20px !important;
 }
 
 </style>

@@ -14,3 +14,6 @@ bien o hace que no sea del todo responsive
 - ver de arreglar bien los colores de los iconos en los botones de navegacion (inactive y active)
 
 - que los botones de soporte y cerrar sesion esten abajo del todo
+
+- en la pagina de cobrar con link de pago (y en todas en realidad) falta hacer que el boton de generar te clearee el input del texto
+y guarde el monton ingresado en una variable

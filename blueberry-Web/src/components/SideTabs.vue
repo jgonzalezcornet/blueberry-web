@@ -16,7 +16,7 @@
         {{ item.title }}
       </v-list-item>
 
-      <v-spacer style="flex: 1;"></v-spacer> <!-- Spacer div to push items down -->
+      <v-spacer style="flex: 1;"></v-spacer>
 
       <v-list-item
         link
@@ -63,17 +63,17 @@ export default {
 .side-menu {
   display: flex;
   flex-direction: column;
-  height: 100%; /* Ensure the drawer takes the full height */
+  height: 100%;
 }
 
 .menu-list {
   display: flex;
   flex-direction: column;
-  flex: 1; /* Allow the menu list to grow and fill the available space */
+  flex: 1;
 }
 
 .active-menu-item {
-  background-color: #E85389 !important; /* Change to your desired active color */
+  background-color: #E85389 !important;
   color: white !important;
   font-weight: bolder !important;
 }

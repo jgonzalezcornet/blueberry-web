@@ -3,6 +3,33 @@
 @tailwind utilities;
 
 .font-varela {
-    font-family: 'Varela Round', sans-serif; /* Fallback to sans-serif if the font doesn't load */
+    font-family: 'Varela Round', sans-serif;
 }
 
+.font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+  
+.page-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: x-large;
+    margin-left: 10px;
+}
+
+.exit-btn {
+    cursor: pointer;
+}
+
+.page-content {
+    display: flex;
+    justify-content: center;
+    padding: 25px;
+    align-items: center
+}

@@ -1,7 +1,10 @@
 <template>
-  en inicio
+  <div class="header-container">
+    <span class="page-title">Inicio</span>
+</div>
 </template>
 
-<script>
+
+<script setup>
 
 </script>
