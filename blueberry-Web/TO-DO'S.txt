@@ -5,15 +5,20 @@ el side menu, por ende está centrado pero con respecto a eso nomás, ver cómo 
 - las paginas de soporte y cerrar sesion no van pero las puse para que no salten errores en el router
 
 - los margenes de las cosas (ej: main zone, logo de la app, boton del perfil) estan hardcodeados en pixeles, nose si eso esta
-bien o hace que no sea del todo responsive
+bien o hace que no sea del todo responsive -> para hacer todo bien responsive al 100% supongo que seria cambiar 
+a donde hay px seteados por vh
 
 - me molesta que haya un mini espacio entre el boton de navegacion de inicio y el app info pero nose si lo puedo sacar
 
 - siento que hay mucho espacio entre el icono y el texto en los botones de navegacion
 
-- ver de arreglar bien los colores de los iconos en los botones de navegacion (inactive y active)
+- ver de arreglar bien los colores de los iconos en los botones de navegacion (inactive y active) + cambiar la forma de poner 
+los iconos por la forma que recomienda mdi para vue (yo (jose) lo hago)
 
 - que los botones de soporte y cerrar sesion esten abajo del todo
 
 - en la pagina de cobrar con link de pago (y en todas en realidad) falta hacer que el boton de generar te clearee el input del texto
 y guarde el monton ingresado en una variable
+
+- capaz estaria bueno cambiar los tamaños de las letras de px a rem asi esta todo mas consistente y si agrandan
+la letra de la pagina se agranda todo bien (más accesibilidad/respuesta = más hci)

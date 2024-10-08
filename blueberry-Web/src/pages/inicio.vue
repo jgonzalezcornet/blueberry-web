@@ -1,7 +1,7 @@
 <template>
   <div class="header-container">
     <span class="page-title">Inicio</span>
-</div>
+  </div>
 </template>
 
 

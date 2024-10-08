@@ -2,7 +2,7 @@
     <v-footer class="footer">
       <v-row justify="center" no-gutters>
         <v-col class="footer-text">
-          {{new Date().getFullYear()}} — <strong>Blueberry</strong>
+          2024 — <strong>Blueberry</strong>
         </v-col>
       </v-row>
     </v-footer>
@@ -22,7 +22,7 @@
         height: auto;
     }
     .footer-text {
-        color: fuchsia;
+        color: lightgrey;
         font-size: 20px;
         font-family: 'Varela Round', sans-serif;
         text-align: center;
