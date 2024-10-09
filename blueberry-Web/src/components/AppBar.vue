@@ -1,14 +1,14 @@
 <template>
-    <v-app-bar :elevation="2" color="#001D3D">
-      <template v-slot:prepend>
-        <img title="web-icon" style="width:40px; height:40px; margin-left:20px;" src="https://t4.ftcdn.net/jpg/05/92/52/75/360_F_592527505_FPSk30HzW1OKAUkPk6r7Po4eKBm5A4pL.jpg"/>
-      </template>
-    <v-toolbar-title class="font-varela" style="font-size: 180%;">Blueberry</v-toolbar-title>
+  <v-app-bar :elevation="2" class="bg-primary">
+    <template v-slot:prepend>
+      <img title="Blueberry icon" class="size-12 ml-4 -mr-3" src="../assets/images/blueberry-shadow.png"/>
+    </template>
+    <v-app-bar-title class="app-title">Blueberry</v-app-bar-title>
     <v-spacer></v-spacer>
-    <v-btn prepend-icon="mdi-account" variant="tonal" :to="'/perfil'" class="perfil-btn font-varela" style="text-transform: capitalize; font-weight: bold;">
-        Manuel Ahumada
+    <v-btn prepend-icon="mdi-account" variant="tonal" :to="'/perfil'" class="font-varela text-capitalize font-bold mr-5 ">
+      Manuel Ahumada
     </v-btn>
-    </v-app-bar>
+  </v-app-bar>
 </template>
 
 <script>
@@ -17,19 +17,9 @@
   };
 </script>
 
-<style>
-
-.v-icon {
-  margin-right: 0px;
-}
-
-.perfil-btn {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0;
-  min-width: 0;
-  margin-right: 20px !important;
-}
-
+<style scoped>
+  .app-title {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 180%;
+  }
 </style>

@@ -23,12 +23,9 @@
     margin-left: 10px;
 }
 
-.exit-btn {
-    cursor: pointer;
-}
-
 .page-content {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     padding: 25px;
     align-items: center

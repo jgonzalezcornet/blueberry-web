@@ -1,6 +1,6 @@
 <template>
   <div class="header-container">
-    <span class="page-title">Inicio</span>
+    <h1 class="page-title">Inicio</h1>
   </div>
 </template>
 
