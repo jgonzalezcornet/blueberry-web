@@ -1,6 +1,6 @@
 <template>
   <div class="header-container">
-    <router-link :to="{ path: '/inicio' }">
+    <router-link :to="'/(main)/inicio'">
       <ExitButton />
     </router-link>
     <h1 class="page-title">Cobrar mediante un link de pago</h1>

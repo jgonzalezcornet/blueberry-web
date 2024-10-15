@@ -5,7 +5,7 @@
     </template>
     <v-app-bar-title class="app-title">Blueberry</v-app-bar-title>
     <v-spacer></v-spacer>
-    <v-btn prepend-icon="mdi-account" variant="tonal" :to="'/perfil'" class="font-varela text-capitalize font-bold mr-5 ">
+    <v-btn prepend-icon="mdi-account" variant="tonal" :to="'/(main)/perfil'" class="font-varela text-capitalize font-bold mr-5 ">
       Manuel Ahumada
     </v-btn>
   </v-app-bar>
