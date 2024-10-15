@@ -30,3 +30,10 @@
     padding: 25px;
     align-items: center
 }
+
+.blue-btn {
+    color: #0066cc;
+    text-decoration: underline;
+    margin-bottom: 20px;
+    display: inline-block;
+  }

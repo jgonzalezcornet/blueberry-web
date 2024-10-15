@@ -19,7 +19,7 @@
             <v-btn class="font-montserrat text-capitalize font-weight-bold font-large bg-primary" block @click="inicio">
               Ingresar
             </v-btn>
-            <div class="register">
+            <div style="margin-top: 20px">
               <p>¿No tienes una cuenta? <router-link :to="'/(login)/registro' " class="blue-btn">Registrarse</router-link></p>
             </div>
             <div class="footer-links">
@@ -54,17 +54,6 @@
   .login-card {
     width: 50%;
     text-align: center;
-  }
-  
-  .blue-btn {
-    color: #0066cc;
-    text-decoration: underline;
-    margin-bottom: 20px;
-    display: inline-block;
-  }
-  
-  .register {
-    margin-top: 20px;
   }
   
   .footer-links {
