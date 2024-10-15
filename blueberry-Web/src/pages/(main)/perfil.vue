@@ -3,11 +3,11 @@
     <router-link :to="{ path: '/inicio' }">
       <ExitButton />
     </router-link>
-    <h1 class="page-title">Transferir dinero</h1>
+    <h1 class="page-title">Perfil</h1>
   </div>
 </template>
   
   
 <script setup>
-  import ExitButton from '../components/ExitButton.vue';
+  import ExitButton from '../../components/ExitButton.vue';
 </script>

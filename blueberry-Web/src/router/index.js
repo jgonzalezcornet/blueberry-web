@@ -11,7 +11,13 @@ import { routes } from 'vue-router/auto-routes'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: setupLayouts(routes),
+  routes: [
+    {
+      path: '/',
+      redirect: '/(main)/inicio'
+    },
+    ...setupLayouts(routes)
+  ],
 })
 
 // Workaround for https://github.com/vitejs/vite/issues/11804

@@ -15,7 +15,7 @@
   
 
 <script setup>
-  import ExitButton from '../components/ExitButton.vue';
+  import ExitButton from '../../components/ExitButton.vue';
 </script>
 
 <style scoped>

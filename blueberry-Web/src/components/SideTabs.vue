@@ -33,16 +33,16 @@
     data() {
       return {
         topMenuItems: [
-          { title: 'Inicio', route: '/inicio', icon: "mdi-home" },
-          { title: 'Transferir', route: '/transferir', icon: "mdi-credit-card-fast-outline" },
-          { title: 'Ingresar dinero', route: '/ingresar', icon: "mdi-cash-plus" },
-          { title: 'Actividad', route: '/actividad', icon: "mdi-history" },
-          { title: 'Tarjetas', route: '/tarjetas', icon: "mdi-wallet-bifold-outline" },
-          { title: 'Cobrar por link', route: '/cobrar', icon: "mdi-link-variant" },
+          { title: 'Inicio', route: '/(main)/inicio', icon: "mdi-home" },
+          { title: 'Transferir', route: '/(main)/transferir', icon: "mdi-credit-card-fast-outline" },
+          { title: 'Ingresar dinero', route: '/(main)/ingresar', icon: "mdi-cash-plus" },
+          { title: 'Actividad', route: '/(main)/actividad', icon: "mdi-history" },
+          { title: 'Tarjetas', route: '/(main)/tarjetas', icon: "mdi-wallet-bifold-outline" },
+          { title: 'Cobrar por link', route: '/(main)/cobrar', icon: "mdi-link-variant" },
         ],
         bottomMenuItems: [
-          { title: 'Soporte', route: '/soporte', icon: "mdi-headphones" },
-          { title: 'Cerrar sesión', route: '/cerrar-sesion', icon: "mdi-account-arrow-right-outline" },
+          { title: 'Soporte', route: '/(main)/soporte', icon: "mdi-headphones" },
+          { title: 'Cerrar sesión', route: '/(login)/login', icon: "mdi-account-arrow-right-outline" },
         ],
       };
     },

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <AppBar />
-    <SideTabs />
+    <SideTabs v-if="isMainRoute" />
       <v-main class="z-1 d-flex flex-col">
         <v-container class="background-overlay flex-grow-1 min-h-screen">
           <router-view />
@@ -12,9 +12,11 @@
 </template>
 
 <script>
+import { useRoute } from 'vue-router';
 import AppBar from './components/AppBar.vue';
 import AppFooter from './components/AppFooter.vue';
 import SideTabs from './components/SideTabs.vue';
+
 
   export default {
     name: 'App',
@@ -22,6 +24,17 @@ import SideTabs from './components/SideTabs.vue';
       AppBar,
       SideTabs,
       AppFooter,
+    },
+    setup() {
+      const route = useRoute();
+      
+      const isMainRoute = computed(() => {
+        return route.path.startsWith('/(main)');
+      });
+
+      return {
+        isMainRoute,
+      };
     },
   };
 </script>
