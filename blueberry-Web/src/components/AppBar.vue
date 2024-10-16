@@ -11,22 +11,15 @@
   </v-app-bar>
 </template>
 
-<script>
-import { useRoute } from 'vue-router';
-  export default {
-    name: 'AppBar',
-    setup() {
-      const route = useRoute();
-      
-      const isMainRoute = computed(() => {
-        return route.path.startsWith('/(main)');
-      });
-
-      return {
-        isMainRoute,
-      };
-    },
-  };
+<script setup>
+  import { computed } from 'vue';
+  import { useRoute } from 'vue-router';
+  
+  const route = useRoute();
+  
+  const isMainRoute = computed(() => {
+    return route.path.startsWith('/(main)');
+  });
 </script>
 
 <style scoped>

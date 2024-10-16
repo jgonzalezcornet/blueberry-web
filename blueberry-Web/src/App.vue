@@ -11,32 +11,18 @@
   </v-app>
 </template>
 
-<script>
-import { useRoute } from 'vue-router';
-import AppBar from './components/AppBar.vue';
-import AppFooter from './components/AppFooter.vue';
-import SideTabs from './components/SideTabs.vue';
-
-
-  export default {
-    name: 'App',
-    components: {
-      AppBar,
-      SideTabs,
-      AppFooter,
-    },
-    setup() {
-      const route = useRoute();
-      
-      const isMainRoute = computed(() => {
-        return route.path.startsWith('/(main)');
-      });
-
-      return {
-        isMainRoute,
-      };
-    },
-  };
+<script setup>
+  import { computed } from 'vue';
+  import { useRoute } from 'vue-router';
+  import AppBar from './components/AppBar.vue';
+  import AppFooter from './components/AppFooter.vue';
+  import SideTabs from './components/SideTabs.vue';
+  
+  const route = useRoute();
+  
+  const isMainRoute = computed(() => {
+    return route.path.startsWith('/(main)');
+  });
 </script>
 
 <style>
