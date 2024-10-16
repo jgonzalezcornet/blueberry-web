@@ -56,10 +56,6 @@
     text-align: center;
   }
   
-  .footer-links {
-    margin-top: 20px;
-  }
-  
   .footer-links a {
     font-size: 12px;
     color: #999;

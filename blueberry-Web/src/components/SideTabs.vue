@@ -27,26 +27,20 @@
   </v-navigation-drawer>
 </template>
 
-<script>
-  export default {
-    name: 'SideMenu',
-    data() {
-      return {
-        topMenuItems: [
-          { title: 'Inicio', route: '/(main)/inicio', icon: "mdi-home" },
-          { title: 'Transferir', route: '/(main)/transferir', icon: "mdi-credit-card-fast-outline" },
-          { title: 'Ingresar dinero', route: '/(main)/ingresar', icon: "mdi-cash-plus" },
-          { title: 'Actividad', route: '/(main)/actividad', icon: "mdi-history" },
-          { title: 'Tarjetas', route: '/(main)/tarjetas', icon: "mdi-wallet-bifold-outline" },
-          { title: 'Cobrar por link', route: '/(main)/cobrar', icon: "mdi-link-variant" },
-        ],
-        bottomMenuItems: [
-          { title: 'Soporte', route: '/(main)/soporte', icon: "mdi-headphones" },
-          { title: 'Cerrar sesión', route: '/(login)/login', icon: "mdi-account-arrow-right-outline" },
-        ],
-      };
-    },
-  };
+<script setup>
+  const topMenuItems = [
+    { title: 'Inicio', route: '/(main)/inicio', icon: "mdi-home" },
+    { title: 'Transferir', route: '/(main)/transferir', icon: "mdi-credit-card-fast-outline" },
+    { title: 'Ingresar dinero', route: '/(main)/ingresar', icon: "mdi-cash-plus" },
+    { title: 'Actividad', route: '/(main)/actividad', icon: "mdi-history" },
+    { title: 'Tarjetas', route: '/(main)/tarjetas', icon: "mdi-wallet-bifold-outline" },
+    { title: 'Cobrar por link', route: '/(main)/cobrar', icon: "mdi-link-variant" },
+  ];
+  
+  const bottomMenuItems = [
+    { title: 'Soporte', route: '/(main)/soporte', icon: "mdi-headphones" },
+    { title: 'Cerrar sesión', route: '/(login)/login', icon: "mdi-account-arrow-right-outline" },
+  ];
 </script>
 
 <style>
