@@ -1,6 +1,6 @@
 <template>
     <div class="login-container">
-        <v-card elevation="2" class="font-montserrat px-6 pt-3 pb-5 rounded-lg login-card">
+        <v-card elevation="2" class="font-montserrat px-6 py-5 rounded-lg login-card">
             <h1 class="page-title" style="margin-bottom: 20px">Iniciar sesión</h1>
             <v-text-field
               label="Correo electrónico"
@@ -47,13 +47,15 @@
   .login-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: top;
+    margin-top: 5vh;
     min-height: 100vh;
   }
   
   .login-card {
     width: 50%;
     text-align: center;
+    height: fit-content;
   }
   
   .footer-links a {
