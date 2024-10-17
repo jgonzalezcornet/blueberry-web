@@ -8,13 +8,18 @@
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import { setupLayouts } from 'virtual:generated-layouts'
 import { routes } from 'vue-router/auto-routes'
+import CardInfo from '../components/CardInfo.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      redirect: '/(main)/inicio'
+      redirect: '/(main)/inicio',
+    },
+    {
+      path: '/(main)/tarjetas/:id',
+      component: CardInfo
     },
     ...setupLayouts(routes)
   ],
