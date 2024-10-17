@@ -3,7 +3,7 @@
     <router-link :to="'/(main)/tarjetas'">
       <ExitButton />
     </router-link>
-    <h1 class="page-title">Agregar tarjeta</h1>
+    <h1 class="page-title">Tarjeta</h1>
   </div>
   <div class="page-content">
     <form @submit.prevent="handleSubmit" elevation="2" class="font-montserrat px-6 pt-6 pb-7 rounded-lg w-66 d-flex flex-column align-center ga-8 bg-white">

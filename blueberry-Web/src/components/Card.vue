@@ -5,8 +5,8 @@
         <img :src="`/img/${brand}.png`" :style="{ height: '25px' }" />
       </div>
       <div class="d-flex align-center justify-between w-100">
-        <p class="text-h5">•••• {{ number }}</p>
-        <img src="/img/arrowRight.png" />
+        <p class="font-montserrat">•••• {{ number }}</p>
+        <v-icon icon="mdi-chevron-right" />
       </div>
     </v-row>
   </router-link>

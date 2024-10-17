@@ -1,8 +1,5 @@
 TODO'S:
 
-- las paginas de soporte (podria ser un modulo que se abra nomas) y cerrar sesion no van,
-pero las puse para que no salten errores en el router
-
 - ver de arreglar bien los colores de los iconos en los botones de navegacion (que se pongan blancos cuando esta activo)
 
 - que los botones de soporte y cerrar sesion esten abajo del todo

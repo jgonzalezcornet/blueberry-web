@@ -11,9 +11,7 @@
       <Card number="1595" cardID="2" background="#AF9B30" brand="visa" />
       <Card number="8481" cardID="3" brand="mastercard" />
     </v-card>
-    <router-link to="/(main)/agregartarjeta">
-      <v-btn class="text-capitalize font-montserrat font-weight-bold font-large bg-primary mt-5" color="primary">Agregar tarjeta</v-btn>
-    </router-link>
+    <v-btn class="text-capitalize font-montserrat font-weight-bold font-large bg-primary mt-5" :to="'/(main)/agregartarjeta'">Agregar tarjeta</v-btn>
   </div>
 </template>
   
