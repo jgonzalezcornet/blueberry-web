@@ -2,7 +2,7 @@
   <v-app-bar :elevation="2" class="bg-primary">
     <template v-slot:prepend>
       <router-link :to="'/(main)/inicio'" class="d-flex align-center gap-2">
-        <img title="Blueberry icon" class="size-12 ml-4 -mr-3" src="../../public/img/blueberry-shadow.png"/>
+        <img title="Blueberry icon" class="size-12 ml-4 -mr-3" src="/img/blueberry-shadow.png"/>
         <v-app-bar-title class="app-title ml-2" translate="no">Blueberry</v-app-bar-title>
       </router-link>
     </template>

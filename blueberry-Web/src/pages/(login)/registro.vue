@@ -21,6 +21,7 @@
           label="DNI"
           v-model="dni"
           prepend-icon="mdi-card-account-details"
+          translate="no"
         />
         <v-text-field
           label="Contraseña"

@@ -25,7 +25,7 @@
         <span class="text-lg mr-1">Alias</span>
         <v-icon icon="mdi-content-copy" class="ml-2 cursor-pointer" color="active" size="small"></v-icon>
         <v-spacer></v-spacer>
-        <span class="text-lg">jlategana.blueberry</span>
+        <span class="text-lg" translate="no">jlategana.blueberry</span>
       </v-row>
     </v-card>
     <v-btn class="text-capitalize font-montserrat font-weight-bold font-large bg-primary mt-5" color="primary">Cambiar alias</v-btn>

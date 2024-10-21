@@ -7,9 +7,7 @@
         exact
         class="font-varela"
         :active-class="'active-menu-item'" >
-        <template v-slot:prepend>
-          <v-icon color="black" class="menu-icon -mr-3">{{ item.icon }}</v-icon>
-        </template>
+        <v-icon class="mr-3">{{ item.icon }}</v-icon>
         {{ item.title }}
       </v-list-item>
     </v-list>
@@ -21,9 +19,7 @@
         exact
         class="font-varela"
         :active-class="'active-menu-item'" >
-        <template v-slot:prepend>
-          <v-icon class="menu-icon -mr-3">{{ item.icon }}</v-icon>
-        </template>
+        <v-icon class="mr-3">{{ item.icon }}</v-icon>
         {{ item.title }}
       </v-list-item>
     </v-list>
