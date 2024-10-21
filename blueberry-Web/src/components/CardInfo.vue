@@ -8,12 +8,15 @@
   <div class="page-content">
     <form @submit.prevent="handleSubmit" elevation="2" class="font-montserrat px-6 pt-6 pb-7 rounded-lg w-66 d-flex flex-column align-center ga-8 bg-white">
       <img src="/img/card.png" />
-      <v-btn type="submit" class="text-capitalize font-montserrat font-weight-bold font-large bg-primary mt-5" color="primary">
+      <v-btn type="submit" class="text-capitalize font-montserrat font-weight-bold font-large bg-primary">
         <template v-if="loading">
           <Loading />
         </template>
         <template v-else>
-          Eliminar
+          <v-row class="d-flex align-center justify-center mr-3">
+            <v-icon icon="mdi-trash-can-outline ml-4 mr-2"></v-icon>
+            <span>Eliminar tarjeta</span>
+          </v-row>
         </template>
       </v-btn>
     </form>

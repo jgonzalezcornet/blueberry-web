@@ -6,19 +6,21 @@
     <h1 class="page-title">Tarjetas</h1>
   </div>
   <div class="page-content">
-    <v-card elevation="2" class="font-montserrat px-6 pt-6 pb-7 rounded-lg w-66 d-flex flex-column align-center ga-8">
-      <Card number="7778" cardID="1" background="#16193C" brand="visa" />
-      <Card number="1595" cardID="2" background="#AF9B30" brand="visa" />
-      <Card number="8481" cardID="3" brand="mastercard" />
-    </v-card>
-    <v-btn class="text-capitalize font-montserrat font-weight-bold font-large bg-primary mt-5" :to="'/(main)/agregartarjeta'">Agregar tarjeta</v-btn>
+    <Tarjetas />
+    <v-btn class="text-capitalize font-montserrat font-weight-bold font-large bg-primary mt-5" :to="'/(main)/agregartarjeta'">
+      <v-row class="d-flex align-center justify-center mr-3">
+        <v-icon icon="mdi-plus-thick ml-4 mr-2"></v-icon>
+        <span>Agregar tarjeta</span>
+      </v-row>
+    </v-btn>
+
   </div>
 </template>
   
   
 <script setup>
+  import Tarjetas from '../../components/Tarjetas.vue';
   import ExitButton from '../../components/ExitButton.vue';
-  import Card from '../../components/Card.vue';
 </script>
 
 <style scoped>

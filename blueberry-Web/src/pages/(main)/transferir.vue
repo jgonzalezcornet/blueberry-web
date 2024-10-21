@@ -13,24 +13,15 @@
         <v-btn
           v-for="option in accountTypes"
           :key="option"
-          :class="{ 'btn-selected': picked === option, 'btn-default': picked !== option }"
+          :class="{ 'text-capitalize font-weight-bold btn-selected': picked === option, 'text-capitalize btn-default': picked !== option }"
           @click="picked = option"
         >
           {{ option }}
         </v-btn>
       </div>
-
-      <v-text-field
-        :label="inputLabel"
-        :prepend-icon="inputIcon"
-        v-model="inputValue"
-      />
-
-      <v-text-field
-        label="Monto"
-        prepend-icon="mdi-currency-usd"
-        v-model="monto"
-      />
+      
+      <v-text-field :label="inputLabel" :prepend-icon="inputIcon"  v-model="inputValue" type="text" @keypress="handleKeyPress" />
+      <v-text-field v-if="inputLabel != 'Link de pago'" label="Monto" prepend-icon="mdi-currency-usd" v-model="monto" type="text" @keypress="validateMontoInput"/>
 
       <v-btn class="font-montserrat text-capitalize font-weight-bold font-large bg-primary" @click="continuar">
         Continuar
@@ -98,6 +89,39 @@
 
   const continuar = () => {
     //router.push('/(main)/transferir/destinatario');
+  };
+
+  const validateMontoInput = (event) => {
+    const key = event.key;
+    const isNumeric = /^[0-9\.]$/.test(key); // ver si dejamos el punto o ponemos coma
+    if (!isNumeric && key !== 'Backspace' && key !== 'Tab') {
+      event.preventDefault();
+    }
+  };
+
+  const validateNumericInput = (event) => {
+    const key = event.key;
+    const isNumeric = /^[0-9]$/.test(key); // ver si dejamos el punto o ponemos coma
+    if (!isNumeric && key !== 'Backspace' && key !== 'Tab') {
+      event.preventDefault();
+    }
+  };
+
+  const validateTextInput = (event) => {
+    const key = event.key;
+    const isText = /^[a-zA-Z0-9\.]$/.test(key); // Allow letters only
+    if (!isText && key !== 'Backspace' && key !== 'Tab') {
+      event.preventDefault();
+    }
+  };
+
+  // Unified keypress handler
+  const handleKeyPress = (event) => {
+    if (inputLabel.value === 'CVU/CBU') {
+      validateNumericInput(event);
+    } else if (inputLabel.value === 'Alias' || inputLabel.value === 'Link de pago') {
+      validateTextInput(event);
+    }
   };
 </script>
 

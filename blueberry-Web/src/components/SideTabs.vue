@@ -1,6 +1,6 @@
 <template>
-  <v-navigation-drawer app permanent :elevation="2" class="d-flex flex-col min-h-screen -mt-2 justify-space-between">
-    <v-list>
+  <v-navigation-drawer app permanent :elevation="2" class= "d-flex flex-col h-screen -mt-2 justify-between">
+    <v-list dense>
       <v-list-item v-for="item in topMenuItems"
         :key="item.title"
         :to="item.route"
@@ -11,8 +11,7 @@
         {{ item.title }}
       </v-list-item>
     </v-list>
-    <v-spacer></v-spacer>
-    <v-list>
+    <v-list dense>
       <v-list-item v-for="item in bottomMenuItems"
         :key="item.title"
         :to="item.route"
