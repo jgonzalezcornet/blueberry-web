@@ -34,7 +34,7 @@
       <v-text-field
         label="Nombre del titular"
         placeholder="Juan Pérez"
-        v-model="name"
+        v-model="owner"
         @keypress="validateTextInput"
         class="w-100 pb-3"
       />
@@ -66,7 +66,7 @@
         @blur="isFlipped = false"
         class="w-100"
       />
-      <v-btn type="submit" class="text-capitalize bg-primary mt-5">
+      <v-btn type="submit" class="text-capitalize bg-primary mt-5" :disabled="loading">
         <template v-if="loading">
           <Loading />
         </template>
@@ -80,59 +80,78 @@
 
 
 <script setup>
-import { ref, computed } from 'vue';
-import Loading from '../../components/Loading.vue';
+  import Loading from '../../components/Loading.vue';
+  import { useStore } from '../../stores/app';
+  import { useRouter } from 'vue-router';
+  import ErrorHandler from '../../utils/ErrorHandler';
+  import getLoggedUserId from '../../utils/getLoggedUserId';
+  
+  const store = useStore();
+  const router = useRouter();
 
-const number = ref('');
-const name = ref('');
-const expiration = ref({ month: '', year: '' });
-const cvv = ref('');
-const isFlipped = ref(false);
-const loading = ref(false);
+  const number = ref("");
+  const owner = ref("");
+  const expiration = ref({
+    month: "",
+    year: ""
+  });
+  const loading = ref(false);
 
-// Format card number with spaces every 4 digits
-const formatCardNumber = () => {
-  const cleanNumber = number.value.replace(/\D/g, '').slice(0, 16);
-  number.value = cleanNumber.match(/.{1,4}/g)?.join(' ') || '';
-};
+  function handleSubmit() {
+    loading.value = true;
+    const id = getLoggedUserId();
+    if(!id){
+      return;
+    }
+    const response = store.addCard(id.id, { number: number.value.replace(/\s/g, ""), owner: owner.value, expiration: expiration.value });
+    if(!response.ok){
+      ErrorHandler({ status: 400, message: response.message });
+      return;
+    }
+    router.push("/(main)/tarjetas");
+  };
 
-// Detect card type based on the card number prefix
-const cardType = computed(() => {
-  if (/^4/.test(number.value)) return 'Visa';
-  if (/^5[1-5]/.test(number.value)) return 'Mastercard';
-  if (/^3[47]/.test(number.value)) return 'American Express';
-  return 'Unknown';
-});
+  const cvv = ref('');
+  const isFlipped = ref(false);
 
-// Dynamically set the card logo
-const cardLogo = computed(() => {
-  switch (cardType.value) {
-    case 'Visa':
-      return '/img/visa.png';
-    case 'Mastercard':
-      return '/img/mastercard.png';
-    case 'American Express':
-      return '/img/americanexpress.png';
-    default:
-      return null; // No logo for unknown cards
-  }
-});
+  // Format card number with spaces every 4 digits
+  const formatCardNumber = () => {
+    const cleanNumber = number.value.replace(/\D/g, '').slice(0, 16);
+    number.value = cleanNumber.match(/.{1,4}/g)?.join(' ') || '';
+  };
 
-// Validate input as alphabetic text only
-const validateTextInput = (event) => {
-  const char = String.fromCharCode(event.which);
-  if (!/^[a-zA-Z\s]*$/.test(char)) event.preventDefault();
-};
+  // Detect card type based on the card number prefix
+  const cardType = computed(() => {
+    if (/^4/.test(number.value)) return 'Visa';
+    if (/^5[1-5]/.test(number.value)) return 'Mastercard';
+    if (/^3[47]/.test(number.value)) return 'American Express';
+    return 'Unknown';
+  });
 
-// Ensure only two-digit input for month/year fields
-const validateTwoDigitInput = (event) => {
-  if (!/^\d$/.test(event.key)) event.preventDefault();
-};
+  // Dynamically set the card logo
+  const cardLogo = computed(() => {
+    switch (cardType.value) {
+      case 'Visa':
+        return '/img/visa.png';
+      case 'Mastercard':
+        return '/img/mastercard.png';
+      case 'American Express':
+        return '/img/americanexpress.png';
+      default:
+        return null; // No logo for unknown cards
+    }
+  });
 
-async function handleSubmit() {
-  loading.value = true;
-  setTimeout(() => (loading.value = false), 1000); // Simulate submission delay
-}
+  // Validate input as alphabetic text only
+  const validateTextInput = (event) => {
+    const char = String.fromCharCode(event.which);
+    if (!/^[a-zA-Z\s]*$/.test(char)) event.preventDefault();
+  };
+
+  // Ensure only two-digit input for month/year fields
+  const validateTwoDigitInput = (event) => {
+    if (!/^\d$/.test(event.key)) event.preventDefault();
+  };
 </script>
 
 

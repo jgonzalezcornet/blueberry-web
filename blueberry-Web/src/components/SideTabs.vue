@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app no-gutters permanent :elevation="2" class= "d-flex flex-col -mt-2 justify-between">
+  <v-navigation-drawer app permanent :elevation="2" class="d-flex flex-column h-screen justify-space-between">
     <v-list dense>
       <v-list-item v-for="item in topMenuItems"
         :key="item.title"
@@ -17,6 +17,7 @@
         :to="item.route"
         exact
         class="font-varela"
+        @click="item.action"
         :active-class="'active-menu-item'" >
         <v-icon class="mr-3">{{ item.icon }}</v-icon>
         {{ item.title }}
@@ -26,6 +27,14 @@
 </template>
 
 <script setup>
+  import { useStore } from '../stores/app';
+  
+  const store = useStore();
+
+  function logout(){
+    store.signOut();
+  }
+
   const topMenuItems = [
     { title: 'Inicio', route: '/(main)/inicio', icon: "mdi-home" },
     { title: 'Transferir', route: '/(main)/transferir', icon: "mdi-credit-card-fast-outline" },
@@ -37,7 +46,7 @@
   
   const bottomMenuItems = [
     { title: 'Soporte', route: '/(main)/soporte', icon: "mdi-headphones" },
-    { title: 'Cerrar sesión', route: '/', icon: "mdi-account-arrow-right-outline" },
+    { title: 'Cerrar sesión', route: '/(login)/login', icon: "mdi-account-arrow-right-outline", action: logout },
   ];
 </script>
 

@@ -14,6 +14,7 @@
     "@mdi/js": "^7.4.47",
     "autoprefixer": "^10.0.0",
     "core-js": "^3.37.1",
+    "pinia-plugin-persistedstate": "^4.1.1",
     "postcss": "^8.4.47",
     "roboto-fontface": "*",
     "tailwindcss": "^3.4.13",

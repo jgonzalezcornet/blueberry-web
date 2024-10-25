@@ -17,7 +17,7 @@
             <router-link :to="'/(login)/olvide'" class="blue-btn">
               ¿Olvidaste tu contraseña?
             </router-link>
-            <v-btn class="font-montserrat text-capitalize font-weight-bold font-large bg-primary" block :to="'/(main)/inicio'">
+            <v-btn class="font-montserrat text-capitalize font-weight-bold font-large bg-primary" block @click="login">
               Ingresar
             </v-btn>
             <div class="mt-5">
@@ -33,9 +33,21 @@
   
 <script setup>
   import { ref } from 'vue';
+  import { useRouter } from 'vue-router';
+  import { useStore } from '../../stores/app';
   
+  const store = useStore();
   const email = ref('');
   const password = ref('');
+
+  function login() {
+    const response = store.signIn({ email: email.value, password: password.value });
+    if(!response?.ok){
+      alert("ERROR: " + response.message);
+      return;
+    }
+    router.push('/(main)/inicio');
+  }
 
   const isPasswordVisible = ref(false);
 
@@ -54,7 +66,6 @@
   const passwordIcon = computed(() => 
   isPasswordVisible.value ? 'mdi-eye-outline' : 'mdi-eye-off-outline'
   );
-
 </script>
   
 <style scoped>

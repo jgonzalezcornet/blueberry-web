@@ -7,8 +7,8 @@
       </router-link>
     </template>
     <v-spacer></v-spacer>
-    <v-btn prepend-icon="mdi-account" variant="tonal" :to="'/(main)/perfil'" class="font-varela text-capitalize font-bold mr-5" v-if="isMainRoute">
-      Manuel Ahumada
+    <v-btn prepend-icon="mdi-account" variant="tonal" :to="'/(main)/perfil'" class="font-varela text-capitalize font-bold mr-5" v-if="isLogged">
+      {{ username }}
     </v-btn>
   </v-app-bar>
 </template>
@@ -16,15 +16,27 @@
 <script setup>
   import { computed } from 'vue';
   import { useRoute } from 'vue-router';
+  import { useStore } from '../stores/app';
+  import ErrorHandler from '../utils/ErrorHandler';
   
+  const store = useStore();
   const route = useRoute();
   
-  const isMainRoute = computed(() => {
-    return route.path.startsWith('/(main)');
+  const username = computed(() => {
+    const response = store.getLoggedUser();
+    if(!response.ok){
+      ErrorHandler({ status: 400, message: "No se encuentra un usuario ingresado actualmente." });
+      return;
+    }
+    return response?.data?.name + " " + response?.data?.lastname;
   });
 
-  const targetRoute = computed(() => {
-    return isMainRoute.value ? '/(main)/inicio' : '/(landing)/landingpage'
+  const isLogged = computed(() => {
+    const response = store.getLoggedUser();
+    if(!response.ok){
+      return false;
+    }
+    return route.path.startsWith('/(main)');
   });
 </script>
 

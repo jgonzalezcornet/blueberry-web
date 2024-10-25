@@ -8,7 +8,7 @@
         </v-col> 
         <v-col class="d-flex flex-col justify-center">
           <v-row no-gutters>
-            <h3 class="font-weight-bold font-montserrat">Nicolás Priotto</h3>
+            <h3 class="font-weight-bold font-montserrat">{{  }}</h3>
           </v-row>
           <v-row no-gutters>
             <h6 class="text-grey font-montserrat">Transferencia enviada</h6>
@@ -24,5 +24,8 @@
 </template>
 
 <script setup>
+  import { computed } from 'vue';
+  import { useStore } from '../stores/app';
+  const store = useStore();
 
 </script>
