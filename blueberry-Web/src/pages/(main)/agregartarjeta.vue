@@ -18,7 +18,7 @@
       <v-text-field
         label="Nombre del titular"
         placeholder="Juan Pérez"
-        v-model="name"
+        v-model="owner"
         @keypress="validateTextInput"
         class="w-100 pb-3"
       />
@@ -42,7 +42,7 @@
           max-length="2"
         />
       </v-row>
-      <v-btn type="submit" class="text-capitalize bg-primary mt-5">
+      <v-btn type="submit" class="text-capitalize bg-primary mt-5" :disabled="loading">
         <template v-if="loading">
           <Loading />
         </template>
@@ -57,17 +57,34 @@
   
 <script setup>
   import Loading from '../../components/Loading.vue';
+  import { useStore } from '../../stores/app';
+  import { useRouter } from 'vue-router';
+  import ErrorHandler from '../../utils/ErrorHandler';
+  import getLoggedUserId from '../../utils/getLoggedUserId';
+  
+  const store = useStore();
+  const router = useRouter();
 
   const number = ref("");
-  const name = ref("");
+  const owner = ref("");
   const expiration = ref({
     month: "",
     year: ""
   });
   const loading = ref(false);
 
-  async function handleSubmit() {
+  function handleSubmit() {
     loading.value = true;
+    const id = getLoggedUserId();
+    if(!id){
+      return;
+    }
+    const response = store.addCard(id.id, { number: number.value.replace(/\s/g, ""), owner: owner.value, expiration: expiration.value });
+    if(!response.ok){
+      ErrorHandler({ status: 400, message: response.message });
+      return;
+    }
+    router.push("/(main)/tarjetas");
   }
 
   const formatCardNumber = (event) => {

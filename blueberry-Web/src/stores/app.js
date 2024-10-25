@@ -20,18 +20,19 @@ const generateRandomCVU = () => {
   return randomCVU;
 };
 
+
 export const useStore = defineStore('app', () => {
   const userId = ref(1);
   const users = ref([]);
 
+  // Users
   function addUser({ name, lastname, email, dni, password }) {
-    console.log(name, lastname, email, dni, password);
     if(!name || !lastname || !email || !dni || !password){
       return { ok: false, message: "Faltan datos para la creacion del usuario." };
     }
     const id = userId.value++;
-    users.value.push({ id, name, lastname, email, dni, password, balance: 0, alias: generateRandomAlias(), cvu: generateRandomCVU() });
-    return { ok: true, message: "El usuario ha sido creado de forma exitosa.", data: { id, name, lastname } };
+    users.value.push({ id, name, lastname, email, dni: Number(dni), password, balance: 0, alias: generateRandomAlias(), cvu: generateRandomCVU() });
+    return { ok: true, message: "El usuario ha sido creado de forma exitosa."};
   };
 
   function removeUser(id) {
@@ -93,6 +94,8 @@ export const useStore = defineStore('app', () => {
     return { ok: false, message: "No se ha encontrado un usuario con el id especificado." };
   }
 
+
+  // Login
   const loggedUser = ref(undefined);
 
   function signIn({ email, password }) {
@@ -105,7 +108,7 @@ export const useStore = defineStore('app', () => {
     for(let user of users.value){
       if(user.email == email && user.password == password){
         loggedUser.value = { id: user.id, name: user.name, lastname: user.lastname };
-        return { ok: true, message: "Se ha ingresado el usuario exitosamente.", data: loggedUser.value };
+        return { ok: true, message: "Se ha ingresado el usuario exitosamente." };
       }
     }
     return { ok: false, message: "Credenciales invalidas." };
@@ -126,39 +129,54 @@ export const useStore = defineStore('app', () => {
     return { ok: true, message: "Datos de usuario ingresado obtenidos exitosamente.", data: loggedUser.value };
   }
 
-  const cards = ref([]);
 
-  function addCard(id, { number, owner, month, year }) {
-    if(!id || !number || !owner || !month || !year){
+  // Cards
+  const cards = ref([]);
+  const cardId = ref(1);
+
+  function addCard(id, { number, owner, expiration }) {
+    if(!id || !number || !owner || !expiration || !expiration.month || !expiration.year){
       return { ok: false, message: "Faltan datos para la creacion de la tarjeta." };
     }
-    const u = undefined;
     for(let user of users.value){
       if(user.id == id){
-        u = user;
+        cards.value.push({ id: cardId.value++, userId: id, number: Number(number), owner, expiration: { month: Number(expiration.month), year: Number(expiration.year) } });
+        return { ok: true, message: "La tarjeta ha sido creada de forma exitosa." };
       }
     }
-    if(!u){
-      return { ok: false, message: "El usuario con el id especificado no existe." };
-    }
-    cards.value.push({ userId: id, number, owner, month, year });
-    return { ok: true, message: "La tarjeta ha sido creado de forma exitosa." };
+    return { ok: false, message: "El usuario con el id especificado no existe." };
   }
 
-  function removeCard(id, { number }) {
-    const c = undefined;
-    for(let card of cards.value){
-      if(card.number == number){
-        c = card;
-      }
+  function removeCard(id) {
+    if(!id){
+      return { ok: false, message: "Se debe especificar el id de la tarjeta a eliminar." };
     }
-    if(!c){
-      return { ok: false, message: "La tarjeta con el numero especificado no existe." };
-    }
-    cards = cards.filter(c => c.number != number && c.id != id);
+    cards.value = cards.value.filter(c => c.id != id);
     return { ok: true, message: "La tarjeta ha sido eliminada de forma exitosa." };
   }
 
+  function getCards(id) {
+    if(!id){
+      return { ok: false, message: "Se debe ingresar un id de usuario para encontrar sus tarjetas." };
+    }
+    const userCards = cards.value.filter(c => c.userId == id);
+    return { ok: true, message: "Se han obtenido las tarjetas del usuario con exito.", data: { cards: userCards } };
+  }
+
+  function getCard(id) {
+    if(!id){
+      return { ok: false, message: "Se debe ingresar un id de tarjeta." };
+    }
+    for(let card of cards.value){
+      if(card.id == id){
+        return { ok: true, message: "Se han obtenido las tarjetas del usuario con exito.", data: { card } };
+      }
+    }
+    return { ok: false, message: "No se ha encontrado una tarjeta con el id especificado." };
+  }
+
+
+  // Movements
   const movements = ref([]);
 
   function addMovement({ from, to, amount, method }){
@@ -176,12 +194,17 @@ export const useStore = defineStore('app', () => {
     return movements.value.filter(movement => movement.from == id || movement.to == id);
   }
 
+
+  // Data persistency
   const loadStoredState = () => {
     const savedState = JSON.parse(localStorage.getItem('app-store'));
     if (savedState) {
-      userId.value = savedState.userId || 0;
+      userId.value = savedState.userId || 1;
       users.value = savedState.users || [];
       loggedUser.value = savedState.loggedUser || undefined;
+      cards.value = savedState.cards || [];
+      cardId.value = savedState.cardId || 1;
+      movements.value = savedState.movements || [];
     }
   };
 
@@ -192,6 +215,10 @@ export const useStore = defineStore('app', () => {
       userId: userId.value,
       users: users.value,
       loggedUser: loggedUser.value,
+      cards: cards.value,
+      cardId: cardId.value,
+      movements: movements.value,
+
     };
     localStorage.setItem('app-store', JSON.stringify(stateToSave));
   };
@@ -201,6 +228,9 @@ export const useStore = defineStore('app', () => {
       userId: userId.value,
       users: users.value,
       loggedUser: loggedUser.value,
+      cards: cards.value,
+      cardId: cardId.value,
+      movements: movements.value,
     }),
     saveStateToLocalStorage,
     { deep: true }
@@ -217,6 +247,8 @@ export const useStore = defineStore('app', () => {
     signOut,
     addCard,
     removeCard,
+    getCards,
+    getCard,
     addMovement,
     getMovements,
     getLoggedUser,

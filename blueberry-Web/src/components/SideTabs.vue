@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app permanent :elevation="2" class= "d-flex flex-col h-screen -mt-2 justify-between">
+  <v-navigation-drawer app permanent :elevation="2" class="d-flex flex-column h-screen justify-space-between">
     <v-list dense>
       <v-list-item v-for="item in topMenuItems"
         :key="item.title"
