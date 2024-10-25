@@ -23,7 +23,6 @@
 
 <script setup>
   import { ref } from 'vue';
-  import { defineProps, defineEmits } from 'vue';
 
   defineProps(['closepopup', 'alias']);
   const emit = defineEmits(['update-alias']);

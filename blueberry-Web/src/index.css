@@ -2,55 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-.font-varela {
+  .font-varela {
     font-family: 'Varela Round', sans-serif;
-}
+  }
 
-.font-montserrat {
+  .font-montserrat {
     font-family: 'Montserrat', sans-serif;
-}
+  }
 
-.header-container {
+  .header-container {
     display: flex;
     align-items: center;
     margin-top: 10px;
-}
+  }
   
-.page-title {
+  .page-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     font-size: x-large;
     margin-left: 10px;
-}
+  }
 
-.page-content {
+  .page-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 25px;
-}
+  }
 
-.blue-btn {
+  .blue-btn {
     color: #0066cc;
     text-decoration: underline;
     margin-bottom: 20px;
     display: inline-block;
   }
-
-/* Hide the spinners for number inputs */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield; /* Firefox */
-  appearance: none; /* General fallback for other browsers */
-}
-
-/* Specific Vuetify styles targeting v-text-field */
-.v-input input[type="number"] {
-  padding-right: 0; /* Remove padding if necessary */
-}

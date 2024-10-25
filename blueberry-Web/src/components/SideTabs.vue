@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app permanent :elevation="2" class= "d-flex flex-col h-screen -mt-2 justify-between">
+  <v-navigation-drawer app no-gutters permanent :elevation="2" class= "d-flex flex-col -mt-2 justify-between">
     <v-list dense>
       <v-list-item v-for="item in topMenuItems"
         :key="item.title"
@@ -37,7 +37,7 @@
   
   const bottomMenuItems = [
     { title: 'Soporte', route: '/(main)/soporte', icon: "mdi-headphones" },
-    { title: 'Cerrar sesión', route: '/(login)/login', icon: "mdi-account-arrow-right-outline" },
+    { title: 'Cerrar sesión', route: '/', icon: "mdi-account-arrow-right-outline" },
   ];
 </script>
 

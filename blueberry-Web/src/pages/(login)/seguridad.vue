@@ -1,5 +1,5 @@
 <template>
-    <div class="header-container">
+  <div class="header-container">
     <router-link :to="'/(login)/login'">
       <ExitButton />
     </router-link>
@@ -8,7 +8,7 @@
 </template>
   
   
-  <script setup>
-    import ExitButton from '../../components/ExitButton.vue';
-  </script>
+<script setup>
+  import ExitButton from '../../components/ExitButton.vue';
+</script>
   

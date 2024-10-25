@@ -1,7 +1,7 @@
 <template>
     <div class="register-container">
       <v-card elevation="2" class="font-montserrat px-6 pt-3 pb-5 rounded-lg register-card">
-        <h1 class="page-title" style="margin-bottom: 20px">Crear tu cuenta</h1>
+        <h1 class="page-title mb-5">Crear tu cuenta</h1>
         <v-text-field
           label="Nombre"
           v-model="nombre"
@@ -26,23 +26,25 @@
         <v-text-field
           label="Contraseña"
           v-model="password"
-          type="password"
           prepend-icon="mdi-lock"
+          :type="passwordFieldType" 
+          :append-icon='passwordIcon' @click:append="togglePasswordVisibility"
         />
         <v-text-field
           label="Confirmar contraseña"
           v-model="confirmPassword"
-          type="password"
           prepend-icon="mdi-lock-check"
+          :type="confirmPasswordFieldType" 
+          :append-icon='confirmPasswordIcon' @click:append="toggleConfirmPasswordVisibility" 
         />
         <v-btn
           class="font-montserrat text-capitalize font-weight-bold font-large bg-primary"
           block
-          @click="registrarse"
+          :to='"/(main)/inicio"'
         >
           Registrarse
         </v-btn>
-        <div style="margin-top: 20px">
+        <div class="mt-5">
             <p>¿Ya tienes una cuenta? <router-link :to="'/(login)/login' " class="blue-btn">Iniciar sesión</router-link></p>
         </div>
       </v-card>
@@ -51,7 +53,6 @@
   
 <script setup>
   import { ref } from 'vue';
-  import { useRouter } from 'vue-router';
   
   const nombre = ref('');
   const apellido = ref('');
@@ -59,25 +60,48 @@
   const dni = ref('');
   const password = ref('');
   const confirmPassword = ref('');
-  
-  const router = useRouter();
-  
-  const registrarse = () => {
-    router.push('/(main)/inicio');
+
+  const isPasswordVisible = ref(false);
+  const isConfirmPasswordVisible = ref(false);
+
+  const togglePasswordVisibility = () => {
+    isPasswordVisible.value = !isPasswordVisible.value;
   };
+
+  const toggleConfirmPasswordVisibility = () => {
+    isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
+  };
+
+  const passwordFieldType = computed(() => 
+    isPasswordVisible.value ? 'text' : 'password'
+  );
+
+  const passwordIcon = computed(() => 
+  isPasswordVisible.value ? 'mdi-eye-outline' : 'mdi-eye-off-outline'
+  );
+
+  const confirmPasswordFieldType = computed(() => 
+    isConfirmPasswordVisible.value ? 'text' : 'password'
+  );
+
+  const confirmPasswordIcon = computed(() => 
+    isConfirmPasswordVisible.value ? 'mdi-eye-outline' : 'mdi-eye-off-outline'
+  );
+
 </script>
   
 <style scoped>
   .register-container {
     display: flex;
     justify-content: center;
-    align-items: center;
     height: 100vh;
+    padding-top: 1rem;
   }
   
   .register-card {
     width: 50%;
     text-align: center;
+    height: fit-content;
   }
 </style>
   
