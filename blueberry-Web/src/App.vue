@@ -3,7 +3,7 @@
     <AppBar />
     <SideTabs v-if="isMainRoute" />
       <v-main class="z-1 d-flex flex-col">
-        <v-container class="background-overlay flex-grow-1 min-h-screen">
+        <v-container class="background-overlay flex-grow-1">
           <router-view />
         </v-container>
         <AppFooter />

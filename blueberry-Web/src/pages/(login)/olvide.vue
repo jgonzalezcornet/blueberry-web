@@ -1,7 +1,7 @@
 <template>
     <div class="recover-container">
       <v-card elevation="2" class="font-montserrat px-6 pt-3 pb-5 rounded-lg recover-card">
-        <h1 class="page-title" style="margin-bottom: 20px">Recuperar contraseña</h1>
+        <h1 class="page-title mb-5">Recuperar contraseña</h1>
         <p class="description">
           Ingrese su correo electrónico para recibir un link a un formulario para recuperar su contraseña.
         </p>
@@ -13,13 +13,13 @@
         <div class="button-group">
           <v-btn
             class="font-montserrat text-capitalize font-weight-bold font-large bg-primary"
-            @click="enviar"
+            :to="'/(login)/login'"
           >
             Enviar
           </v-btn>
           <v-btn
             class="font-montserrat text-capitalize font-weight-bold font-large"
-            @click="cancelar"
+            :to="'/(login)/login'"
             color="grey"
           >
             Cancelar
@@ -31,31 +31,23 @@
   
   <script setup>
   import { ref } from 'vue';
-  import { useRouter } from 'vue-router';
   
   const email = ref('');
-  const router = useRouter();
-  
-  const enviar = () => {
-    router.push('/(login)/login');
-  };
-  
-  const cancelar = () => {
-    router.push('/(login)/login');
-  };
+
   </script>
   
   <style scoped>
   .recover-container {
     display: flex;
     justify-content: center;
-    align-items: center;
     min-height: 100vh;
+    padding-top: 3rem;
   }
   
   .recover-card {
     width: 50%;
     text-align: center;
+    height: fit-content;
   }
   
   .description {

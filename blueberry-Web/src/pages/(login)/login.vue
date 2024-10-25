@@ -1,7 +1,7 @@
 <template>
     <div class="login-container">
         <v-card elevation="2" class="font-montserrat px-6 py-5 rounded-lg login-card">
-            <h1 class="page-title" style="margin-bottom: 20px">Iniciar sesión</h1>
+            <h1 class="page-title mb-5">Iniciar sesión</h1>
             <v-text-field
               label="Correo electrónico"
               prepend-icon="mdi-email"
@@ -11,7 +11,8 @@
               label="Contraseña"
               prepend-icon="mdi-lock"
               v-model="password"
-              type="password"
+              :type="passwordFieldType" 
+              :append-icon='passwordIcon' @click:append="togglePasswordVisibility"
             />
             <router-link :to="'/(login)/olvide'" class="blue-btn">
               ¿Olvidaste tu contraseña?
@@ -19,7 +20,7 @@
             <v-btn class="font-montserrat text-capitalize font-weight-bold font-large bg-primary" block @click="login">
               Ingresar
             </v-btn>
-            <div style="margin-top: 20px">
+            <div class="mt-5">
               <p>¿No tienes una cuenta? <router-link :to="'/(login)/registro' " class="blue-btn">Registrarse</router-link></p>
             </div>
             <div class="footer-links">
@@ -34,11 +35,10 @@
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
   import { useStore } from '../../stores/app';
+  
   const store = useStore();
-
   const email = ref('');
   const password = ref('');
-  const router = useRouter();
 
   function login() {
     const response = store.signIn({ email: email.value, password: password.value });
@@ -48,13 +48,30 @@
     }
     router.push('/(main)/inicio');
   }
+
+  const isPasswordVisible = ref(false);
+
+  const togglePasswordVisibility = () => {
+    isPasswordVisible.value = !isPasswordVisible.value;
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
+  };
+
+  const passwordFieldType = computed(() => 
+    isPasswordVisible.value ? 'text' : 'password'
+  );
+
+  const passwordIcon = computed(() => 
+  isPasswordVisible.value ? 'mdi-eye-outline' : 'mdi-eye-off-outline'
+  );
 </script>
   
 <style scoped>
   .login-container {
     display: flex;
     justify-content: center;
-    align-items: top;
     margin-top: 5vh;
     min-height: 100vh;
   }
