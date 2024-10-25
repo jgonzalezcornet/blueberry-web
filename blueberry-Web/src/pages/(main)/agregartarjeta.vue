@@ -118,16 +118,16 @@
 
 
   // Function to validate input for month and year
-const validateTwoDigitInput = (event, field) => {
-  const key = event.key;
-
-  // Allow only numbers and restrict the input to two characters
-  if (!/^\d$/.test(key) && key !== 'Backspace' && key !== 'Tab') {
-    event.preventDefault();
-  }
-
+  const validateTwoDigitInput = (event, field) => {
+    const key = event.key;
   
-};
+    // Allow only numbers and restrict the input to two characters
+    if (!/^\d$/.test(key) && key !== 'Backspace' && key !== 'Tab') {
+      event.preventDefault();
+    }
+  
+    
+  };
 
 </script>
 
