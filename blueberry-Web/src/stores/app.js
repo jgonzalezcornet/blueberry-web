@@ -236,6 +236,7 @@ export const useStore = defineStore('app', () => {
     { deep: true }
   );
 
+  // Make data accessable
   return {
     addUser,
     removeUser,
