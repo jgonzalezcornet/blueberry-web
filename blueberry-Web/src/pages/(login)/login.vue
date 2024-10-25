@@ -37,6 +37,7 @@
   import { useStore } from '../../stores/app';
   
   const store = useStore();
+  const router = useRouter();
   const email = ref('');
   const password = ref('');
 

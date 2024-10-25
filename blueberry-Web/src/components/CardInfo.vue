@@ -7,7 +7,7 @@
   </div>
   <div class="page-content">
     <form @submit.prevent="handleSubmit" elevation="2" class="font-montserrat px-6 pt-6 pb-7 rounded-lg w-66 d-flex flex-column align-center ga-8 bg-white">
-      <img src="/img/card.png" />
+      <img src="" />
       <v-btn :disabled="loading" type="submit" class="text-capitalize font-montserrat font-weight-bold font-large bg-primary">
         <template v-if="loading">
           <Loading />

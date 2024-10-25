@@ -40,7 +40,7 @@
         <v-btn
           class="font-montserrat text-capitalize font-weight-bold font-large bg-primary"
           block
-          :to='"/(main)/inicio"'
+          @click="registrarse"
         >
           Registrarse
         </v-btn>

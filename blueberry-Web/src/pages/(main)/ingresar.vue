@@ -121,19 +121,11 @@
     return response2?.data?.alias;
   });
 
-  const snackbar = ref({ show: false, message: '' });  // Snackbar state
-
-  const popuptrigger = ref(false);
-
   const hiddenBalance = ref(true);
 
   const hideBalance = () => {
     hiddenBalance.value = !hiddenBalance.value;
   }
-
-  const togglePopup = () => {
-    popuptrigger.value = !popuptrigger.value;
-  };
 
   const updateAlias = (newAlias) => {
     const response = store.getLoggedUser();
@@ -151,19 +143,6 @@
     popuptrigger.value = false;  // Close popup after updating alias
   };
 
-  const copyToClipboard = async (text) => {
-    try {
-      await navigator.clipboard.writeText(text);
-      showSnackbar('Copiado a la papelera');
-    } catch (err) {
-      console.error('Failed to copy: ', err);
-    }
-  };
-
-  const showSnackbar = (message, color = 'success') => {
-    snackbar.value = { show: true, message, color };
-  };
-
   // Computed properties for icon and dinero visibility
   const dineroIcon = computed(() =>
     isDineroVisible.value ? 'mdi-eye-outline' : 'mdi-eye-off-outline'
@@ -175,11 +154,6 @@
 
   const togglePopup = () => {
     popuptrigger.value = !popuptrigger.value;
-  };
-
-  const updateAlias = (newAlias) => {
-    alias.value = newAlias;
-    popuptrigger.value = false;
   };
 
   const copyToClipboard = async (text) => {
