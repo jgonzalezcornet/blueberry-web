@@ -4,12 +4,12 @@
         <h1 class="page-title" style="margin-bottom: 20px">Crear tu cuenta</h1>
         <v-text-field
           label="Nombre"
-          v-model="nombre"
+          v-model="name"
           prepend-icon="mdi-account"
         />
         <v-text-field
           label="Apellido"
-          v-model="apellido"
+          v-model="lastname"
           prepend-icon="mdi-account"
         />
         <v-text-field
@@ -52,9 +52,11 @@
 <script setup>
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
+  import { useStore } from '../../stores/app';
+  const store = useStore();
   
-  const nombre = ref('');
-  const apellido = ref('');
+  const name = ref('');
+  const lastname = ref('');
   const email = ref('');
   const dni = ref('');
   const password = ref('');
@@ -63,7 +65,16 @@
   const router = useRouter();
   
   const registrarse = () => {
-    router.push('/(main)/inicio');
+    if(password.value != confirmPassword.value){
+      alert("ERROR: Las contraseñas ingresadas no coinciden.");
+      return;
+    }
+    const response = store.addUser({ name: name.value, lastname: lastname.value, email: email.value, dni: dni.value, password: password.value });
+    if(!response.ok){
+      alert("ERROR: " + response.message);
+      return;
+    }
+    router.push('/(login)/login');
   };
 </script>
   

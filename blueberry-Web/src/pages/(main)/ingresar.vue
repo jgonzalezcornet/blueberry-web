@@ -10,8 +10,9 @@
       <v-row class="d-flex align-center pb-3">
         <v-card-title class="text-xl">Dinero en cuenta</v-card-title>
         <v-spacer></v-spacer>
-        <span class="font-extrabold text-xl">{{ dinero }}</span>
-        <v-icon icon="mdi-eye-off-outline ml-2 mr-2 cursor-pointer" color="darkgrey" />
+        <span v-if="hiddenBalance" class="font-extrabold text-xl">$XXXXX</span>
+        <span v-else="hiddenBalance" class="font-extrabold text-xl">${{ dinero.toFixed(2) }}</span>
+        <v-icon icon="mdi-eye-off-outline ml-2 mr-2 cursor-pointer" color="darkgrey" @click="hideBalance" />
       </v-row>
       <v-divider class="border-opacity-100 pb-2" color="info" />
       <span class="text-lg overflow-auto">Para ingresar dinero a tu cuenta, transferí desde cualquier banco a tu alias o CVU</span>
@@ -38,23 +39,82 @@
 
 
 <script setup>
-  import { ref } from 'vue';
+  import { computed, ref } from 'vue';
   import CambiarAlias from '../../components/CambiarAlias.vue';
   import ExitButton from '../../components/ExitButton.vue';
-  
-  const dinero = ref('$ 0.00');
-  const cvu = ref('1234567890123456789012');
-  const alias = ref('blueberry');
+  import { useStore } from '../../stores/app';
+  import ErrorHandler from '../../utils/ErrorHandler';
+  const store = useStore();
+
+  const dinero = computed(() => {
+    const response = store.getLoggedUser();
+    if(!response.ok){
+      ErrorHandler({ status: 400, message: "No se han podido extraer los datos del usuario ingresado." });
+      return 0;
+    }
+    const response2 = store.getBalance(response?.data?.id);
+    if(!response2.ok){
+      ErrorHandler({ status: 400, message: "No se ha podido extraer el balance del usuario ingresado." });
+      return 0;
+    }
+    return response2?.data?.balance;
+  });
+
+  const cvu = computed(() => {
+    const response = store.getLoggedUser();
+    if(!response.ok){
+      ErrorHandler({ status: 400, message: "No se han podido extraer los datos del usuario ingresado." });
+      return 0;
+    }
+    console.log(response.data.id)
+    const response2 = store.getCVU(response?.data?.id);
+    if(!response2.ok){
+      ErrorHandler({ status: 400, message: "No se ha podido extraer el cvu del usuario ingresado." });
+      return 0;
+    }
+    return response2?.data?.cvu;
+  });
+
+  const alias = computed(() => {
+    const response = store.getLoggedUser();
+    if(!response.ok){
+      ErrorHandler({ status: 400, message: "No se han podido extraer los datos del usuario ingresado." });
+      return 0;
+    }
+    const response2 = store.getAlias(response?.data?.id);
+    if(!response2.ok){
+      ErrorHandler({ status: 400, message: "No se ha podido extraer el alias del usuario ingresado." });
+      return 0;
+    }
+    return response2?.data?.alias;
+  });
 
   const snackbar = ref({ show: false, message: '' });  // Snackbar state
 
   const popuptrigger = ref(false);
+
+  const hiddenBalance = ref(true);
+
+  const hideBalance = () => {
+    hiddenBalance.value = !hiddenBalance.value;
+  }
 
   const togglePopup = () => {
     popuptrigger.value = !popuptrigger.value;
   };
 
   const updateAlias = (newAlias) => {
+    const response = store.getLoggedUser();
+    if(!response.ok){
+      ErrorHandler({ status: 400, message: "No se han podido extraer los datos del usuario ingresado." });
+      return;
+    }
+    const response2 = store.setAlias(response?.data?.id, newAlias);
+    if(!response2.ok){
+      ErrorHandler({ status: 400, message: "No se ha podido actualizar el alias" });
+      return;
+    }
+
     alias.value = newAlias;
     popuptrigger.value = false;  // Close popup after updating alias
   };
