@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="2" class="font-montserrat px-6 pt-3 pb-5 rounded-lg" title="Para generar un link de pago, ingrese el monto a cobrar:">
+  <v-card elevation="2" class="font-montserrat px-6 pt-3 pb-5 rounded-lg" :width="cardWidth" title="Para generar un link de pago, ingrese el monto a cobrar:">
     <v-text-field placeholder="10000" prepend-icon="mdi-currency-usd" v-model="monto1" type="text" @keypress="validateNumericInput"/>
     <v-btn class="font-montserrat text-capitalize font-weight-bold font-large bg-primary" @click="togglePopup" block>Generar</v-btn>
   </v-card>
@@ -12,6 +12,15 @@
   
   const monto1 = ref('');   /* tuve que ponerle monto1 porque si se llamaba monto como la prop de linkdepago se rompe todo */
   const popuptrigger = ref(false);
+
+  const props = defineProps({
+  width: {
+    type: String,
+    default: '100%'
+  }
+  });
+
+  const cardWidth = computed(() => props.width);
 
   const togglePopup = () => {
     popuptrigger.value = !popuptrigger.value;

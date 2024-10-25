@@ -1,5 +1,5 @@
 <template>
-  <v-card class="font-montserrat pt-1 pb-3 px-2 rounded-lg align-middle justify-center" elevation="2" width="60vw">
+  <v-card class="font-montserrat pt-1 pb-3 px-2 rounded-lg align-middle justify-center" elevation="2" :width="cardWidth">
     <v-container>
       <h5 class="pb-2">Hoy</h5>
       <v-row class="justify-between flex-auto align-middle" no-gutters>
@@ -27,5 +27,14 @@
   import { computed } from 'vue';
   import { useStore } from '../stores/app';
   const store = useStore();
+
+  const props = defineProps({
+    width: {
+      type: String,
+      default: '60vw'
+    }
+  });
+  
+  const cardWidth = computed(() => props.width);
 
 </script>
