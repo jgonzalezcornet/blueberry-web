@@ -1,11 +1,11 @@
 const getCardBackground = (brand) => {
   switch(brand){
     case "visa":
-      return "#292E63";
+      return "#023E8A";
     case "mastercard":  
-      return "#E0D2A3";
+      return "#DC6601";
     case "amex":
-      return "#081F97"
+      return "#CFB503"
     default:
       return "#444444";
   }

@@ -47,7 +47,7 @@
   .popup-backdrop {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 125%;
     background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;

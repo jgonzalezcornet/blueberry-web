@@ -7,9 +7,16 @@
       </router-link>
     </template>
     <v-spacer></v-spacer>
+
+    <v-tooltip text="Por cualquier duda o inconveniente contactarse con blueberry@gmail.com">
+      <template v-slot:activator="{ props }">
+        <v-btn  v-bind="props" icon="mdi-headphones" class="mr-3" density="compact" />
+      </template>
+    </v-tooltip>
     <v-btn prepend-icon="mdi-account" variant="tonal" :to="'/(main)/perfil'" class="font-varela text-capitalize font-bold mr-5" v-if="isLogged">
       {{ username }}
     </v-btn>
+    <SoportePopUp v-if="popuptrigger" :closepopup="triggerSoporte"/>
   </v-app-bar>
 </template>
 
@@ -38,6 +45,7 @@
     }
     return route.path.startsWith('/(main)');
   });
+  
 </script>
 
 <style scoped>

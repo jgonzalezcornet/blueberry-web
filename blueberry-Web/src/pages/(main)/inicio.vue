@@ -10,7 +10,6 @@
             <v-col cols="12" md="6">
               <Saldo width="100%" />
               <Tarjetas width="100%"/>
-              <Cobrar width="100%" />
             </v-col>
             <v-col cols="12" md="6">
               <Actividad width="100%" />

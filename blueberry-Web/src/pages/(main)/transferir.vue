@@ -7,7 +7,7 @@
   </div>
   <div class="page-content">
     <v-card elevation="2" class="font-montserrat px-6 pt-3 pb-5 rounded-lg account-card">
-      <h1 class="page-title" style="margin-bottom: 20px;">Tipo de cuenta</h1>
+      <h1 class="page-title mb-5">Tipo de cuenta</h1>
 
       <div class="button-group">
         <v-btn
@@ -23,7 +23,7 @@
       <v-text-field :label="inputLabel" :prepend-icon="inputIcon"  v-model="inputValue" type="text" @keypress="handleKeyPress" />
       <v-text-field v-if="inputLabel != 'Link de pago'" label="Monto" prepend-icon="mdi-currency-usd" v-model="monto" type="text" @keypress="validateMontoInput"/>
 
-      <v-btn class="font-montserrat text-capitalize font-weight-bold font-large bg-primary" @click="continuar">
+      <v-btn class="font-montserrat text-capitalize font-weight-bold font-large bg-primary" :to="'./transferir2'">
         Continuar
       </v-btn>
     </v-card>

@@ -10,53 +10,56 @@
     <div class="card-preview-container">
       <div class="card-preview" :class="{ flipped: isFlipped }">
         <div class="card-side front">
-          <img v-if="cardLogo" :src="cardLogo" class="card-logo" alt="Card Logo" />
-          <p class="card-number">{{ number || 'XXXX XXXX XXXX XXXX' }}</p>
-          <p class="card-holder">{{ name || 'John Doe' }}</p>
+          <p class="card-number">{{ number || 'xxxx xxxx xxxx xxxx' }}</p>
+          <p class="card-holder line-clamp-1">{{ owner || 'Juan Perez' }}</p>
           <p class="card-expiration">{{ expiration.month || 'MM' }}/{{ expiration.year || 'AA' }}</p>
+          <div class="d-flex justify-end">
+            <img v-if="cardLogo" :src="cardLogo" class="w-14" alt="Card Logo" />
+          </div>
+          
         </div>
         <div class="card-side back">
           <p class="cvv-label">CVV</p>
-          <p class="cvv">{{ cvv }}</p>
+          <p class="cvv">{{ cvv || '***' }}</p>
         </div>
       </div>
     </div>
 
-    <form @submit.prevent="handleSubmit" class="form-container">
+    <form @submit.prevent="handleSubmit" class="d-flex flex-col w-2/4 ">
       <v-text-field
         label="Número de tarjeta"
         placeholder="0123 4567 8910 1112"
         v-model="number"
         @input="formatCardNumber"
         maxlength="19"
-        class="w-100"
+        minlenght="19"
       />
       <v-text-field
         label="Nombre del titular"
         placeholder="Juan Pérez"
         v-model="owner"
         @keypress="validateTextInput"
-        class="w-100 pb-3"
+        minlength="5"
       />
-      <v-row class="d-flex flex-row ga-3 align-center justify-start w-100">
+      <div class="d-flex flex-row">
         <v-text-field
           label="Mes"
           placeholder="01"
           v-model="expiration.month"
           maxlength="2"
           @keypress="validateTwoDigitInput"
-          class="flex-1"
+          class="mr-3"
+          minlenght="2"
         />
-        <v-text>/</v-text>
         <v-text-field
           label="Año"
           placeholder="26"
           v-model="expiration.year"
           maxlength="2"
           @keypress="validateTwoDigitInput"
-          class="flex-2"
+          minlenght="2"
         />
-      </v-row>
+      </div>
       <v-text-field
         label="CVV"
         placeholder="123"
@@ -64,9 +67,8 @@
         maxlength="3"
         @focus="isFlipped = true"
         @blur="isFlipped = false"
-        class="w-100"
       />
-      <v-btn type="submit" class="text-capitalize bg-primary mt-5" :disabled="loading">
+      <v-btn type="submit" class="text-capitalize bg-primary mt-3" :disabled="loading">
         <template v-if="loading">
           <Loading />
         </template>
@@ -157,7 +159,6 @@
 
 
 <style scoped>
-
   .card-preview-container {
     perspective: 1000px;
     margin-bottom: 20px;
@@ -187,19 +188,14 @@
   }
 
   .front {
-    background-color: black;
+    background-color: gray;
     color: white;
   }
 
   .back {
-    background-color: #2e2e2e;
+    background-color: gray;
     color: white;
     transform: rotateY(180deg);
-  }
-
-  .card-logo {
-    width: 50px;
-    margin-bottom: 10px;
   }
 
   .card-number {
@@ -215,15 +211,7 @@
 
   .cvv-label {
     font-weight: bold;
-    margin-bottom: 5px;
-  }
-
-  .form-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
-    max-width: 400px;
+    
   }
 </style>
 

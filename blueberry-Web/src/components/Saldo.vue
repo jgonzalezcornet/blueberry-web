@@ -1,8 +1,8 @@
 <template>
-    <v-card class="dinero-cuenta-card pa-5 mb-5 d-flex flex-column ga-2" :width="cardWidth">
+    <v-card class="pa-5 mb-5 d-flex flex-column ga-2" :width="cardWidth">
       <p class="font-montserrat text-xl">Dinero en cuenta</p>
       <div class="d-flex align-center">
-        <span v-if="hiddenBalance" class="font-montserrat font-extrabold text-xl">$XXXXX</span>
+        <span v-if="hiddenBalance" class="font-montserrat font-extrabold text-xl">$****</span>
         <span v-else class="font-montserrat font-extrabold text-xl">${{ dinero.toFixed(2) }}</span>
         <v-icon icon="mdi-eye-off-outline" class="ml-2" color="darkgrey" @click="toggleBalance"/>
       </div>

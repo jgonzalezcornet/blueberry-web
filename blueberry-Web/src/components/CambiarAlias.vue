@@ -7,11 +7,8 @@
         <v-spacer></v-spacer>
         <v-icon icon="mdi-close-circle-outline" @click="closepopup"/>
       </v-row>
-      <v-row class="justify-center">
-        <h3>Recordá que solo puede llevar letras, números y puntos. </h3> 
-      </v-row>
-      <v-row class="justify-center pb-5">
-        <h3 class="justify-center">No incluir la ñ ni otros caracteres especiales.</h3>
+      <v-row class="justify-center pb-3">
+        <h3>Recordá que solo puede incluir letras, números y puntos. </h3> 
       </v-row>
       <v-row class="mt-3 px-3 d-flex align-center">
         <v-text-field placeholder="nuevoalias123" v-model="nuevoalias" type="text" @keypress="validateTextInput"/>
@@ -48,7 +45,7 @@
   .popup-backdrop {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 117%;
     background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
