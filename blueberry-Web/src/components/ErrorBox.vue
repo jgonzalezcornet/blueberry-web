@@ -2,8 +2,8 @@
   <div v-if="showError" class="boxContainer">
     <div class="boxWrapper">
       <div class="box">
-        <v-icon class="boxButton" icon="mdi-close-circle-outline" @click="closepopup"/>
-        <v-alert color="error" title="Error" text="Lo sentimos" />
+        <v-icon class="boxButton" icon="mdi-close-circle-outline" @click="closeError"/>
+        <v-alert color="error" :title="title" :text="text" />
       </div>
     </div>
   </div>
@@ -17,6 +17,7 @@
     width: 100vw;
     height: 100vh;
     z-index: 100000;
+    pointer-events: none;
   }
 
   .boxWrapper {
@@ -33,6 +34,7 @@
     height: 32px;
     z-index: 10000000;
     color: #FFFFFF;
+    cursor: pointer;
   }
 
   .box {
@@ -42,6 +44,7 @@
     min-width: 400px;
     border-radius: 8px;
     overflow: hidden;
+    pointer-events: visible;
   }
 </style>
 
@@ -52,11 +55,22 @@
   const store = useStore();
 
   const showError = computed(() => {
-    return false;
     return store.showError();
   });
 
   const error = computed(() => {
     return store.getError();
   });
+
+  const text = computed(() => {
+    return error.value.message;
+  });
+
+  const title = computed(() => {
+    return "ERROR " + error.value.status;
+  });
+
+  const closeError = () => {
+    store.closeError();
+  };
 </script>

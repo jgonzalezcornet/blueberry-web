@@ -78,16 +78,16 @@
   
   const registrarse = () => {
     if(password.value != confirmPassword.value){
-      alert("ERROR: Las contraseñas ingresadas no coinciden.");
+      ErrorHandler({ status: 400, message: "Las contraseñas ingresadas no coinciden." });
       return;
     }
     if (!passwordRegex.test(password.value)) {
-      alert("La contraseña debe tener al menos una minúscula, una mayúscula, un número, un carácter especial y al menos 8 caracteres.");
+      ErrorHandler({ status: 400, message: "La contraseña debe tener al menos una minúscula, una mayúscula, un número, un carácter especial y al menos 8 caracteres." });
       return;
     }
     const response = store.addUser({ name: name.value, lastname: lastname.value, email: email.value, dni: dni.value, password: password.value });
     if(!response.ok){
-      alert("ERROR: " + response.message);
+      ErrorHandler({ status: 400, message: response.message });
       return;
     }
     router.push('/(login)/login');

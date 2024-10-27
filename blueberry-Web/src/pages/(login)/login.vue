@@ -35,6 +35,7 @@
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
   import { useStore } from '../../stores/app';
+  import ErrorHandler from '../../utils/ErrorHandler';
   
   const store = useStore();
   const router = useRouter();
@@ -44,7 +45,7 @@
   function login() {
     const response = store.signIn({ email: email.value, password: password.value });
     if(!response?.ok){
-      alert("ERROR: " + response.message);
+      ErrorHandler({ status: 400, message: response.message });
       return;
     }
     router.push('/(main)/inicio');

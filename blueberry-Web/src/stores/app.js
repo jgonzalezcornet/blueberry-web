@@ -375,12 +375,17 @@ export const useStore = defineStore('app', () => {
     return errorDisplay.value;
   } 
 
+  const closeError = () => {
+    errorDisplay.value = false;
+  }
+
   const getError = () => {
     return error.value;
   }
 
-  const setError = () => {
-    error.value = error;
+  const setError = ({ status, message }) => {
+    errorDisplay.value = true;
+    error.value = { status, message };
   }
 
 
@@ -459,6 +464,7 @@ export const useStore = defineStore('app', () => {
     getMovements,
     getLoggedUser,
     showError,
+    closeError,
     getError,
     setError,
   };

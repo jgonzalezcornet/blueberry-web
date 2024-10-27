@@ -13,6 +13,21 @@
       <p>Correo: {{ userData.email }}</p>
       <p>DNI: {{ userData.dni }}</p>
     </v-card>
+    <v-card elevation="2" class="font-montserrat px-6 pt-3 pb-5 rounded-lg w-50 text-center h-fit mb-10">
+      <h1 class="page-title mb-5">Modificar alias</h1>
+      <v-text-field
+        label="Alias"
+        v-model="alias"
+        prepend-icon="mdi-account"
+      />
+      <v-btn
+        class="font-montserrat text-capitalize font-weight-bold font-large bg-primary"
+        block
+        @click="updateAlias"
+      >
+        Modificar
+      </v-btn>
+    </v-card>
     <v-card elevation="2" class="font-montserrat px-6 pt-3 pb-5 rounded-lg w-50 text-center h-fit">
       <h1 class="page-title mb-5">Modificar contraseña</h1>
       <v-text-field
@@ -69,11 +84,32 @@
     return response.data;
   });
   
+  const alias = ref('');
 
   const password = ref('');
   const confirmPassword = ref('');
   const currentPassword = ref('');
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+
+  const updateAlias = () => {
+    const response = store.getLoggedUser();
+    if(!response.ok){
+      ErrorHandler({ status: 400, message: "No se han podido extraer los datos del usuario ingresado." });
+      return;
+    }
+
+    if(alias.value.length < 3){
+      ErrorHandler({ status: 400, message: "El alias debe tener al menos 3 caracteres." });
+      return;
+    }
+    
+    const response2 = store.setAlias(response?.data?.id, alias.value);
+    if(!response2.ok){
+      ErrorHandler({ status: 400, message: "No se ha podido actualizar el alias" });
+      return;
+    }
+    alert(response2.message);
+  }
 
   const modificarPassword = () => {
     const id = getLoggedUserId();
@@ -82,19 +118,16 @@
       return;
     }
 
-    console.log("Ricardo");
     
     if(password.value != confirmPassword.value){
-      alert("Las contraseñas no coinciden.");
+      ErrorHandler({ status: 400, message: "Las contraseñas no coinciden." });
       return;
     }
-    console.log("Paso el primer if");
 
     if (!passwordRegex.test(password.value)) {
-      alert("La contraseña debe tener al menos una minúscula, una mayúscula, un número, un carácter especial y al menos 8 caracteres.");
+      ErrorHandler({ status: 400, message: "a contraseña debe tener al menos una minúscula, una mayúscula, un número, un carácter especial y al menos 8 caracteres." });
       return;
     }
-    console.log("Paso el segundo if");
 
     const response = store.setPassword(id.id, password.value, currentPassword.value);
     if(!response.ok){
