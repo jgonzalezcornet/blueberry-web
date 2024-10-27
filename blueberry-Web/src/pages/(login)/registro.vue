@@ -63,6 +63,7 @@
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
   import { useStore } from '../../stores/app';
+  import ErrorHandler from '../../utils/ErrorHandler';
   
   const store = useStore();
   const router = useRouter();

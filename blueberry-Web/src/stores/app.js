@@ -38,6 +38,11 @@ export const useStore = defineStore('app', () => {
     if(!name || !lastname || !email || !dni || !password){
       return { ok: false, message: "Faltan datos para la creacion del usuario." };
     }
+    for(let user of users.value){
+      if(user.email == email || user.dni == dni){
+        return { ok: false, message: "Ya existe un usuario con este email o dni."};
+      }
+    }
     const id = userId.value++;
     users.value.push({ id, name, lastname, email, dni: Number(dni), password, balance: 0, alias: generateRandomAlias(), cvu: generateRandomCVU() });
     return { ok: true, message: "El usuario ha sido creado de forma exitosa."};

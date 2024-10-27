@@ -1,16 +1,16 @@
 <template>
   <v-app-bar :elevation="2" class="bg-primary">
-    <template v-slot:prepend>
+    <div>
       <router-link :to="targetRoute" class="d-flex align-center gap-2">
         <img title="Blueberry icon" class="size-12 ml-4 -mr-3" src="/img/blueberry-shadow.png"/>
         <v-app-bar-title class="app-title ml-2" translate="no">Blueberry</v-app-bar-title>
       </router-link>
-    </template>
+    </div>
     <v-spacer></v-spacer>
 
     <v-tooltip text="Por cualquier duda o inconveniente contactarse con blueberry@gmail.com">
       <template v-slot:activator="{ props }">
-        <v-btn  v-bind="props" icon="mdi-headphones" class="mr-3" density="compact" />
+        <v-btn v-bind="props" icon="mdi-headphones" class="mr-3" density="compact" />
       </template>
     </v-tooltip>
     <v-btn prepend-icon="mdi-account" variant="tonal" :to="'/(main)/perfil'" class="font-varela text-capitalize font-bold mr-5" v-if="isLogged">

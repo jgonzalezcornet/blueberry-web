@@ -108,7 +108,6 @@
       ErrorHandler({ status: 400, message: "No se ha podido actualizar el alias" });
       return;
     }
-    alert(response2.message);
   }
 
   const modificarPassword = () => {
@@ -134,7 +133,6 @@
       ErrorHandler({ status: 400, message: response.message });
       return;
     }
-    alert(response.message);
   }
 
   const isPasswordVisible = ref(false);
