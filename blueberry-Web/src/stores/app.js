@@ -372,7 +372,7 @@ export const useStore = defineStore('app', () => {
   const error = ref({});
 
   const showError = () => {
-    return showError.value;
+    return errorDisplay.value;
   } 
 
   const getError = () => {
@@ -458,5 +458,8 @@ export const useStore = defineStore('app', () => {
     addMovement,
     getMovements,
     getLoggedUser,
+    showError,
+    getError,
+    setError,
   };
 });
