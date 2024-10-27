@@ -24,9 +24,8 @@
 <script setup>
   import { ref } from 'vue';
 
-  defineProps(['closepopup', 'monto']);
+  defineProps(['closepopup', 'monto', 'link']);
 
-  const link = ref('https://blueberry.com.ar/linkdepago');
   const snackbar = ref({ show: false, message: '' });  // Snackbar state
 
   const copyToClipboard = async (text) => {

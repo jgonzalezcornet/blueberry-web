@@ -6,7 +6,8 @@
         :to="item.route"
         exact
         class="font-varela"
-        :active-class="'active-menu-item'" >
+        :active-class="'active-menu-item'"
+        @click="item.action" >
         <v-icon class="mr-3">{{ item.icon }}</v-icon>
         {{ item.title }}
       </v-list-item>
@@ -16,11 +17,13 @@
 
 <script setup>
   import { useStore } from '../stores/app';
+  import { useRouter } from 'vue-router';
   
   const store = useStore();
 
   function logout(){
     store.signOut();
+    router.push("/(login)/login");
   }
 
   const topMenuItems = [
@@ -30,7 +33,7 @@
     { title: 'Actividad', route: '/(main)/actividad', icon: "mdi-history" },
     { title: 'Tarjetas', route: '/(main)/tarjetas', icon: "mdi-wallet-bifold-outline" },
     { title: 'Cobrar por link', route: '/(main)/cobrar', icon: "mdi-link-variant" },
-    { title: 'Cerrar sesión', route: '/(login)/login', icon: "mdi-account-arrow-right-outline", action: logout },
+    { title: 'Cerrar sesión', route: '/(login)/login', icon: "mdi-account-arrow-right-outline", action: () => logout() },
   ];
 </script>
 

@@ -1,153 +1,57 @@
 <template>
-  <div class="header-container">
-    <router-link :to="'/(main)/inicio'">
-      <ExitButton />
-    </router-link>
-    <h1 class="page-title">Transferir dinero</h1>
-  </div>
-  <div class="page-content">
-    <v-card elevation="2" class="font-montserrat px-6 pt-3 pb-5 rounded-lg account-card">
-      <h1 class="page-title mb-5">Tipo de cuenta</h1>
-
-      <div class="button-group">
-        <v-btn
-          v-for="option in accountTypes"
-          :key="option"
-          :class="{ 'text-capitalize font-weight-bold btn-selected': picked === option, 'text-capitalize btn-default': picked !== option }"
-          @click="picked = option"
-        >
-          {{ option }}
-        </v-btn>
-      </div>
-      
-      <v-text-field :label="inputLabel" :prepend-icon="inputIcon"  v-model="inputValue" type="text" @keypress="handleKeyPress" />
-      <v-text-field v-if="inputLabel != 'Link de pago'" label="Monto" prepend-icon="mdi-currency-usd" v-model="monto" type="text" @keypress="validateMontoInput"/>
-
-      <v-btn class="font-montserrat text-capitalize font-weight-bold font-large bg-primary" :to="'./transferir2'">
-        Continuar
-      </v-btn>
-    </v-card>
-  </div>
+  <TransferirForm v-if="!confirmation" @set-data="setData" />
+  <TransferirConfirm v-else @back="unconfirm" @submit="handleSubmit" :amount="amount" :to="to" />
 </template>
 
 <script setup>
-  import { ref, computed } from 'vue';
+  import { ref } from 'vue';
+  import TransferirForm from '../../components/TransferirForm.vue';
+  import TransferirConfirm from '../../components/TransferirConfirm.vue';
+  import { useStore } from '../../stores/app';
   import { useRouter } from 'vue-router';
-  import ExitButton from '../../components/ExitButton.vue';
+  import ErrorHandler from '../../utils/ErrorHandler';
+  import getLoggedUserId from '../../utils/getLoggedUserId';
 
-  const picked = ref('Alias');
-  const monto = ref('');
-  const alias = ref('');
-  const cvuCbu = ref('');
-  const linkPago = ref('');
+  const store = useStore();
   const router = useRouter();
 
-  const accountTypes = ['Alias', 'CVU/CBU', 'Link de pago'];
+  const confirmation = ref(false);
+  const amount = ref("");
+  const to = ref("");
+  const method = ref("");
 
-  const inputLabel = computed(() => picked.value);
+  const unconfirm = () => {
+    confirmation.value = false;
+  }
 
-  const inputIcon = computed(() => {
-    switch (picked.value) {
-      case 'Alias':
-        return 'mdi-account';
-      case 'CVU/CBU':
-        return 'mdi-bank';
-      case 'Link de pago':
-        return 'mdi-link-variant';
-      default:
-        return '';
-    }
-  });
-
-  const inputValue = computed({
-    get() {
-      switch (picked.value) {
-        case 'Alias':
-          return alias.value;
-        case 'CVU/CBU':
-          return cvuCbu.value;
-        case 'Link de pago':
-          return linkPago.value;
-        default:
-          return '';
+  const setData = ({ newAmount, newTo, newMethod }) => {
+    if(newMethod == "link"){
+      const response = store.getLinkData(newTo);
+      if(!response.ok){
+        ErrorHandler({ status: 400, message: response.message });
+        return;
       }
-    },
-    set(value) {
-      switch (picked.value) {
-        case 'Alias':
-          alias.value = value;
-          break;
-        case 'CVU/CBU':
-          cvuCbu.value = value;
-          break;
-        case 'Link de pago':
-          linkPago.value = value;
-          break;
-      }
+      amount.value = response.data.amount;
+      to.value = response.data.to;
+    } else {
+      amount.value = newAmount;
+      to.value = newTo;
     }
-  });
-
-  const continuar = () => {
-    //router.push('/(main)/transferir/destinatario');
-  };
-
-  const validateMontoInput = (event) => {
-    const key = event.key;
-    const isNumeric = /^[0-9\.]$/.test(key); // ver si dejamos el punto o ponemos coma
-    if (!isNumeric && key !== 'Backspace' && key !== 'Tab') {
-      event.preventDefault();
+    method.value = newMethod;
+    confirmation.value = true;
+  }
+  
+  const handleSubmit = () => {
+    const id = getLoggedUserId();
+    if(!id?.id){
+      ErrorHandler({ status: 400, message: "No se ha encontrado el id del usuario ingresado." });
+      return;
     }
-  };
-
-  const validateNumericInput = (event) => {
-    const key = event.key;
-    const isNumeric = /^[0-9]$/.test(key); // ver si dejamos el punto o ponemos coma
-    if (!isNumeric && key !== 'Backspace' && key !== 'Tab') {
-      event.preventDefault();
+    const response = store.addMovement(id.id, { to: to.value, amount: amount.value, method: method.value == "link" ? "alias" : method.value });
+    if(!response.ok){
+      ErrorHandler({ status: 400, message: response.message });
+      return;
     }
-  };
-
-  const validateTextInput = (event) => {
-    const key = event.key;
-    const isText = /^[a-zA-Z0-9\.]$/.test(key); // Allow letters only
-    if (!isText && key !== 'Backspace' && key !== 'Tab') {
-      event.preventDefault();
-    }
-  };
-
-  // Unified keypress handler
-  const handleKeyPress = (event) => {
-    if (inputLabel.value === 'CVU/CBU') {
-      validateNumericInput(event);
-    } else if (inputLabel.value === 'Alias' || inputLabel.value === 'Link de pago') {
-      validateTextInput(event);
-    }
-  };
+    router.push("/(main)/actividad");
+  }
 </script>
-
-<style scoped>
-  .account-card {
-    width: 50%;
-    text-align: center;
-  }
-
-  .button-group {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
-  .btn-selected {
-    background-color: #00294D;
-    color: white;
-  }
-
-  .btn-default {
-    background-color: #e0e0e0;
-    color: black;
-  }
-
-  .v-btn {
-    width: 30%;
-  }
-</style>

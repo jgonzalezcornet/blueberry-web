@@ -26,10 +26,18 @@
         <v-text-field
           label="Contraseña"
           v-model="password"
-          prepend-icon="mdi-lock"
           :type="passwordFieldType" 
-          :append-icon='passwordIcon' @click:append="togglePasswordVisibility"
-        />
+          :append-icon='passwordIcon' 
+          @click:append="togglePasswordVisibility"
+        >
+          <template v-slot:prepend>
+            <v-tooltip text="La contraseña debe tener al menos una minúscula, una mayúscula, un número, un carácter especial y al menos 8 caracteres.">
+              <template v-slot:activator="{ props }">
+                <v-icon v-bind="props">mdi-lock</v-icon>
+              </template>
+            </v-tooltip>
+          </template>
+        </v-text-field>
         <v-text-field
           label="Confirmar contraseña"
           v-model="confirmPassword"
@@ -65,10 +73,16 @@
   const dni = ref('');
   const password = ref('');
   const confirmPassword = ref('');
+
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
   
   const registrarse = () => {
     if(password.value != confirmPassword.value){
       alert("ERROR: Las contraseñas ingresadas no coinciden.");
+      return;
+    }
+    if (!passwordRegex.test(password.value)) {
+      alert("La contraseña debe tener al menos una minúscula, una mayúscula, un número, un carácter especial y al menos 8 caracteres.");
       return;
     }
     const response = store.addUser({ name: name.value, lastname: lastname.value, email: email.value, dni: dni.value, password: password.value });

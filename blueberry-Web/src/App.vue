@@ -1,4 +1,5 @@
 <template>
+  <ErrorBox />
   <v-app>
     <AppBar />
     <SideTabs v-if="isMainRoute" />
@@ -17,6 +18,7 @@
   import AppBar from './components/AppBar.vue';
   import AppFooter from './components/AppFooter.vue';
   import SideTabs from './components/SideTabs.vue';
+  import ErrorBox from './components/ErrorBox.vue';
   
   const route = useRoute();
   

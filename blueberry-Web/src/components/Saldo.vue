@@ -3,7 +3,7 @@
       <p class="font-montserrat text-xl">Dinero en cuenta</p>
       <div class="d-flex align-center">
         <span v-if="hiddenBalance" class="font-montserrat font-extrabold text-xl">$****</span>
-        <span v-else class="font-montserrat font-extrabold text-xl">${{ dinero.toFixed(2) }}</span>
+        <span v-else class="font-montserrat font-extrabold text-xl">{{ formattedAmount }}</span>
         <v-icon icon="mdi-eye-off-outline" class="ml-2" color="darkgrey" @click="toggleBalance"/>
       </div>
       <div class="d-flex flex-row justify-space-between">
@@ -13,7 +13,7 @@
     </v-card>
   </template>
   
-  <script setup>
+<script setup>
   import { computed, ref } from 'vue';
   import { useRouter } from 'vue-router';
   import { useStore } from '../stores/app';
@@ -27,6 +27,11 @@
       type: String,
       default: '100%'
     }
+  });
+
+  const formattedAmount = computed(() => {
+    const str = (dinero.value < 0 ? "-" : "");
+    return str + "$" + Math.abs(dinero.value);
   });
   
   const cardWidth = computed(() => props.width);
