@@ -12,6 +12,8 @@
       <p>Apellido: {{ userData.lastname }}</p>
       <p>Correo: {{ userData.email }}</p>
       <p>DNI: {{ userData.dni }}</p>
+      <p>CVU: {{ userData.cvu }}</p>
+      <p>Alias: {{ userData.alias }}</p>
     </v-card>
     <v-card elevation="2" class="font-montserrat px-6 pt-3 pb-5 rounded-lg w-50 text-center h-fit mb-10">
       <h1 class="page-title mb-5">Modificar alias</h1>
@@ -59,6 +61,13 @@
         Modificar
       </v-btn>
     </v-card>
+    <v-btn
+        class="font-montserrat text-capitalize font-weight-bold font-large bg-primary mt-5"
+        style="width: 200px;"
+        @click="logout"
+      >
+        Cerrar sesión
+    </v-btn>
   </div>
 </template>
   
@@ -67,11 +76,26 @@
   import ExitButton from '../../components/ExitButton.vue';
   import { ref, computed } from 'vue';
   import { useStore } from '../../stores/app';
+  import { useRouter } from 'vue-router';
   import getLoggedUserId from '../../utils/getLoggedUserId';
   import ErrorHandler from '../../utils/ErrorHandler';
+  import SuccessHandler from '../../utils/SuccessHandler';
+
   const store = useStore();
+  const router = useRouter();
+
+  let loadData = true;
+
+  function logout(){
+    loadData = false;
+    store.signOut();
+    router.push("/(login)/login");
+  }
 
   const userData = computed(() => {
+    if(!loadData){
+      return {};
+    }
     const id = getLoggedUserId();
     if(!id){
       return {};
@@ -108,6 +132,8 @@
       ErrorHandler({ status: 400, message: "No se ha podido actualizar el alias" });
       return;
     }
+
+    SuccessHandler({ message: "Se ha actualizado el alias de la cuenta." });
   }
 
   const modificarPassword = () => {
@@ -124,7 +150,7 @@
     }
 
     if (!passwordRegex.test(password.value)) {
-      ErrorHandler({ status: 400, message: "a contraseña debe tener al menos una minúscula, una mayúscula, un número, un carácter especial y al menos 8 caracteres." });
+      ErrorHandler({ status: 400, message: "La contraseña debe tener al menos una minúscula, una mayúscula, un número, un carácter especial y al menos 8 caracteres." });
       return;
     }
 
@@ -133,6 +159,8 @@
       ErrorHandler({ status: 400, message: response.message });
       return;
     }
+
+    SuccessHandler({ message: "Se ha actualizado la contraseña de la cuenta de forma exitosa." });
   }
 
   const isPasswordVisible = ref(false);

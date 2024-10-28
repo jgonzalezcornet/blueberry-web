@@ -9,7 +9,8 @@
           <v-row>
             <v-col cols="12" md="6">
               <Saldo width="100%" />
-              <Tarjetas width="100%"/>
+              <Tarjetas :inMainpage="true" width="100%"/>
+              <Cobrar :inMainpage="true" width="100%"/>
             </v-col>
             <v-col cols="12" md="6">
               <Actividad width="100%" :useTitle="true" />

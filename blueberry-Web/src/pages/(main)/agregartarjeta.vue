@@ -64,7 +64,7 @@
         label="CVV"
         placeholder="123"
         v-model="cvv"
-        maxlength="3"
+        maxlength="4"
         @focus="isFlipped = true"
         @blur="isFlipped = false"
       />
@@ -86,6 +86,7 @@
   import { useStore } from '../../stores/app';
   import { useRouter } from 'vue-router';
   import ErrorHandler from '../../utils/ErrorHandler';
+  import SuccessHandler from '../../utils/SuccessHandler';
   import getLoggedUserId from '../../utils/getLoggedUserId';
   
   const store = useStore();
@@ -103,13 +104,17 @@
     loading.value = true;
     const id = getLoggedUserId();
     if(!id){
+      ErrorHandler({ status: 400, message: "No se han podido obtener los datos del usuario ingresado." });
+      loading.value = false;
       return;
     }
     const response = store.addCard(id.id, { number: number.value.replace(/\s/g, ""), owner: owner.value, expiration: expiration.value });
     if(!response.ok){
       ErrorHandler({ status: 400, message: response.message });
+      loading.value = false;
       return;
     }
+    SuccessHandler({ message: "Se ha agregado una nueva tarjeta a su cuenta." });
     router.push("/(main)/tarjetas");
   };
 

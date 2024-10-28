@@ -4,7 +4,7 @@
       <div class="d-flex align-center">
         <span v-if="hiddenBalance" class="font-montserrat font-extrabold text-xl">$****</span>
         <span v-else class="font-montserrat font-extrabold text-xl">{{ formattedAmount }}</span>
-        <v-icon icon="mdi-eye-off-outline" class="ml-2" color="darkgrey" @click="toggleBalance"/>
+        <v-icon :icon="hiddenBalance ? 'mdi-eye-off-outline' : 'mdi-eye-outline'" class="ml-2" color="darkgrey" @click="toggleBalance"/>
       </div>
       <div class="d-flex flex-row justify-space-between">
         <v-btn class="font-montserrat text-capitalize font-weight-bold font-large bg-primary" @click="handleIngresar">Ingresar</v-btn>

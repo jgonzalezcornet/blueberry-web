@@ -13,7 +13,7 @@
         <v-spacer></v-spacer>
         <span v-if="hiddenBalance" class="font-extrabold text-xl">$****</span>
         <span v-else="hiddenBalance" class="font-extrabold text-xl">${{ dinero.toFixed(2) }}</span>
-        <v-icon icon="mdi-eye-off-outline ml-2 mr-2 cursor-pointer" color="darkgrey" @click="hideBalance" />
+        <v-icon :icon="hiddenBalance ? 'mdi-eye-off-outline' : 'mdi-eye-outline'" class="pl-4 mr-5" color="darkgrey" @click="hideBalance" />
       </v-row>
 
       <v-divider class="border-opacity-100 pb-2" color="info" />
@@ -54,7 +54,7 @@
       color="primary" 
       @click="togglePopup"
     >
-      Cambiar alias
+      Modificar alias
     </v-btn>
 
     <CambiarAlias 
@@ -76,6 +76,7 @@
   import ExitButton from '../../components/ExitButton.vue';
   import { useStore } from '../../stores/app';
   import ErrorHandler from '../../utils/ErrorHandler';
+  import SuccessHandler from '../../utils/SuccessHandler';
   const store = useStore();
 
   const dinero = computed(() => {
@@ -141,6 +142,8 @@
 
     alias.value = newAlias;
     popuptrigger.value = false;  // Close popup after updating alias
+
+    SuccessHandler({ message: "Se ha actualizado el alias del usuario." });
   };
 
   // Computed properties for icon and dinero visibility

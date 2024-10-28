@@ -10,7 +10,7 @@
     <v-btn class="text-capitalize font-montserrat font-weight-bold font-large bg-primary mt-5" :to="'/(main)/agregartarjeta'">
       <v-row class="d-flex align-center justify-center mr-3">
         <v-icon icon="mdi-plus-thick ml-4 mr-2"></v-icon>
-        <span>Agregar tarjeta</span>
+        <span>Agregar</span>
       </v-row>
     </v-btn>
 

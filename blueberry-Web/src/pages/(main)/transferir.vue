@@ -10,6 +10,7 @@
   import { useStore } from '../../stores/app';
   import { useRouter } from 'vue-router';
   import ErrorHandler from '../../utils/ErrorHandler';
+  import SuccessHandler from '../../utils/SuccessHandler';
   import getLoggedUserId from '../../utils/getLoggedUserId';
 
   const store = useStore();
@@ -41,17 +42,18 @@
     confirmation.value = true;
   }
   
-  const handleSubmit = () => {
+  const handleSubmit = ({ fromBalance }) => {
     const id = getLoggedUserId();
     if(!id?.id){
       ErrorHandler({ status: 400, message: "No se ha encontrado el id del usuario ingresado." });
       return;
     }
-    const response = store.addMovement(id.id, { to: to.value, amount: amount.value, method: method.value == "link" ? "alias" : method.value });
+    const response = store.addMovement(id.id, { fromBalance, to: to.value, amount: amount.value, method: method.value == "link" ? "alias" : method.value });
     if(!response.ok){
       ErrorHandler({ status: 400, message: response.message });
       return;
     }
+    SuccessHandler({ message: "Movimiento generado de forma exitosa." });
     router.push("/(main)/actividad");
   }
 </script>

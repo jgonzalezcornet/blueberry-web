@@ -1,5 +1,6 @@
 <template>
   <ErrorBox />
+  <SuccessBox />
   <v-app>
     <AppBar />
     <SideTabs v-if="isMainRoute" />
@@ -19,6 +20,7 @@
   import AppFooter from './components/AppFooter.vue';
   import SideTabs from './components/SideTabs.vue';
   import ErrorBox from './components/ErrorBox.vue';
+  import SuccessBox from './components/SuccessBox.vue';
   
   const route = useRoute();
   

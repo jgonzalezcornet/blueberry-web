@@ -1,5 +1,5 @@
 <template>
-<div class="page-content popup-backdrop">
+  <div class="page-content popup-backdrop">
     <v-card elevation="2" class="font-montserrat px-6 py-6 rounded-lg w-2/5 align-center">
       <v-row class="d-flex align-center justify-between pb-1">
         <v-spacer></v-spacer>

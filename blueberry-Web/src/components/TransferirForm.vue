@@ -35,6 +35,8 @@
   import { useRouter } from 'vue-router';
   import ExitButton from '../components/ExitButton.vue';
 
+  const router = useRouter();
+  
   const emit = defineEmits([ "set-data" ]);
 
   const picked = ref('Alias');
@@ -42,7 +44,6 @@
   const alias = ref('');
   const cvuCbu = ref('');
   const linkPago = ref('');
-  const router = useRouter();
 
   const accountTypes = ['Alias', 'CVU/CBU', 'Link de pago'];
 

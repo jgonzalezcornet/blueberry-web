@@ -1,9 +1,9 @@
 <template>
-  <div v-if="showError" class="boxContainer">
+  <div v-if="showSuccess" class="boxContainer">
     <div class="boxWrapper">
       <div class="box">
-        <v-icon class="boxButton" icon="mdi-close-circle-outline" @click="closeError"/>
-        <v-alert color="error" title="ERROR" :text="text" />
+        <v-icon class="boxButton" icon="mdi-close-circle-outline" @click="closeSuccess"/>
+        <v-alert color="success" title="Operacion exitosa" :text="text" />
       </div>
     </div>
   </div>
@@ -54,19 +54,19 @@
 
   const store = useStore();
 
-  const showError = computed(() => {
-    return store.showError();
+  const showSuccess = computed(() => {
+    return store.showSuccess();
   });
 
-  const error = computed(() => {
-    return store.getError();
+  const success = computed(() => {
+    return store.getSuccess();
   });
 
   const text = computed(() => {
-    return error.value.message;
+    return success.value.message;
   });
 
-  const closeError = () => {
-    store.closeError();
+  const closeSuccess = () => {
+    store.closeSuccess();
   };
 </script>

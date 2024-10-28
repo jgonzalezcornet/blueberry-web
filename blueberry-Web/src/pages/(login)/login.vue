@@ -36,6 +36,7 @@
   import { useRouter } from 'vue-router';
   import { useStore } from '../../stores/app';
   import ErrorHandler from '../../utils/ErrorHandler';
+  import SuccessHandler from '../../utils/SuccessHandler';
   
   const store = useStore();
   const router = useRouter();
@@ -48,6 +49,7 @@
       ErrorHandler({ status: 400, message: response.message });
       return;
     }
+    SuccessHandler({ message: "Usuario ingresado de forma exitosa." });
     router.push('/(main)/inicio');
   }
 

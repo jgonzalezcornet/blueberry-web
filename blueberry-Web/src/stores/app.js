@@ -2,6 +2,8 @@
 import { defineStore } from 'pinia';
 import { ref, watch } from 'vue';
 
+const STARTING_BALANCE = 10000;
+
 const generateRandomAlias = () => {
   const characters = "abcdefghijklmnopqrstuvwxyz";
   let randomAlias = "";
@@ -44,7 +46,7 @@ export const useStore = defineStore('app', () => {
       }
     }
     const id = userId.value++;
-    users.value.push({ id, name, lastname, email, dni: Number(dni), password, balance: 0, alias: generateRandomAlias(), cvu: generateRandomCVU() });
+    users.value.push({ id, name, lastname, email, dni: Number(dni), password, balance: STARTING_BALANCE, alias: generateRandomAlias(), cvu: generateRandomCVU() });
     return { ok: true, message: "El usuario ha sido creado de forma exitosa."};
   };
 
@@ -239,6 +241,14 @@ export const useStore = defineStore('app', () => {
     if(!id || !number || !owner || !expiration || !expiration.month || !expiration.year){
       return { ok: false, message: "Faltan datos para la creacion de la tarjeta." };
     }
+    if(number.toString().length != 16){
+      return { ok: false, message: "Numero de tarjeta invalido." };
+    }
+    for(let card of cards.value){
+      if(card.number == number){
+        return { ok: false, message: "Ya existe una tarjeta con el numero proporcionado." };
+      }
+    }
     for(let user of users.value){
       if(user.id == id){
         cards.value.push({ id: cardId.value++, userId: id, number: Number(number), owner, expiration: { month: Number(expiration.month), year: Number(expiration.year) } });
@@ -338,7 +348,7 @@ export const useStore = defineStore('app', () => {
     return undefined;
   }
 
-  function addMovement(id, { to, amount, method }){
+  function addMovement(id, { fromBalance, to, amount, method }){
     if(!id || !to || !amount || !method){
       return { ok: false, message: "Faltan datos para la creacion de un movimiento." };
     }
@@ -346,12 +356,32 @@ export const useStore = defineStore('app', () => {
     if(!Object.keys(methods).includes(method)){
       return { ok: false, message: "El metodo de pago es invalido." };
     }
+    let found = false;
+    for(let user of users.value){
+      if(user.id == id){
+        if(fromBalance && user.balance < Number(amount)){
+          return { ok: false, message: "El balance del usuario es insuficiente para realizar el movimiento." };
+        }
+        found = true;
+      }
+    }
+    if(!found){
+      return { ok: false, message: "No se ha encontrado un usuario con el id especificado." };
+    }
     const receiver = methods[method](to);
     if(!receiver){
       return { ok: false, message: "No se ha podido encontrar un destinatario con los datos proporcionados." };
     }
+    if(id == receiver){
+      return { ok: false, message: "Estan prohibidas las transferencias desde una cuenta a si misma." };
+    }
     movements.value.push({ from: id, to: receiver, amount: Number(amount), method, date: new Date() });
-    const successSent = addToUserBalance(id, Number(amount) * -1);
+    let successSent;
+    if(fromBalance){
+      successSent = addToUserBalance(id, Number(amount) * -1);
+    }else{
+      successSent = true;
+    }
     const successReceived = addToUserBalance(receiver, Number(amount));
     if(!successSent || !successReceived){
       return { ok: false, message: "El movimiento no ha podido realizarse." };
@@ -367,7 +397,7 @@ export const useStore = defineStore('app', () => {
       const type = movement.from == id ? "enviada" : movement.to == id ? "recibida" : "";
       const fromID = movement.from == id ? movement.to : movement.from;
       return { type, from: getName(fromID).data.name + " " + getLastname(fromID).data.lastname, amount: movement.amount };
-    });
+    }).reverse();
     return { ok: true, message: "Se han extraido los movimientos de forma exitosa." , data: { movements: userMovements } };
   }
 
@@ -390,7 +420,31 @@ export const useStore = defineStore('app', () => {
 
   const setError = ({ status, message }) => {
     errorDisplay.value = true;
+    successDisplay.value = false;
     error.value = { status, message };
+  }
+
+
+  // Success
+  const successDisplay = ref(false);
+  const success = ref({});
+
+  const showSuccess = () => {
+    return successDisplay.value;
+  } 
+
+  const closeSuccess = () => {
+    successDisplay.value = false;
+  }
+
+  const getSuccess = () => {
+    return success.value;
+  }
+
+  const setSuccess = ({ message }) => {
+    successDisplay.value = true;
+    errorDisplay.value = false;
+    success.value = { message };
   }
 
 
@@ -407,6 +461,8 @@ export const useStore = defineStore('app', () => {
       links.value = savedState.links || [];
       errorDisplay.value = savedState.errorDisplay || false;
       error.value = savedState.error || {};
+      successDisplay.value = savedState.successDisplay || false;
+      success.value = savedState.success || {};
     }
   };
 
@@ -423,6 +479,8 @@ export const useStore = defineStore('app', () => {
       links: links.value,
       errorDisplay: errorDisplay.value,
       error: error.value,
+      successDisplay: successDisplay.value,
+      success: success.value,
     };
     localStorage.setItem('app-store', JSON.stringify(stateToSave));
   };
@@ -438,6 +496,8 @@ export const useStore = defineStore('app', () => {
       links: links.value,
       errorDisplay: errorDisplay.value,
       error: error.value,
+      successDisplay: successDisplay.value,
+      success: success.value,
     }),
     saveStateToLocalStorage,
     { deep: true }
@@ -472,5 +532,9 @@ export const useStore = defineStore('app', () => {
     closeError,
     getError,
     setError,
+    showSuccess,
+    closeSuccess,
+    getSuccess,
+    setSuccess,
   };
 });

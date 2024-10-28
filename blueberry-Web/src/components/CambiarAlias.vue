@@ -3,7 +3,7 @@
     <v-card elevation="2" class="font-montserrat px-6 py-6 rounded-lg w-2/5 align-center">
       <v-row class="d-flex align-center justify-between">
         <v-spacer></v-spacer>
-        <span class="text-xl justify-center font-extrabold">Cambiar alias</span>
+        <span class="text-xl justify-center font-extrabold">Modificar alias</span>
         <v-spacer></v-spacer>
         <v-icon icon="mdi-close-circle-outline" @click="closepopup"/>
       </v-row>

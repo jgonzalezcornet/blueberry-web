@@ -13,7 +13,7 @@
         <div class="button-group">
           <v-btn
             class="font-montserrat text-capitalize font-weight-bold font-large bg-primary"
-            :to="'/(login)/login'"
+            @click="handleSubmit"
           >
             Enviar
           </v-btn>
@@ -31,8 +31,17 @@
   
   <script setup>
   import { ref } from 'vue';
+  import { useRouter } from 'vue-router';
+  import SuccessHandler from '../../utils/SuccessHandler';
+
+  const router = useRouter();
   
   const email = ref('');
+
+  const handleSubmit = () => {
+    SuccessHandler({ message: "Se ha enviado un email a la casilla especificada." });
+    router.push("/(login)/login");
+  }
 
   </script>
   
