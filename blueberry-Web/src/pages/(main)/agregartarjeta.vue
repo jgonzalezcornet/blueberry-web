@@ -43,7 +43,7 @@
       />
       <div class="d-flex flex-row">
         <v-text-field
-          label="Mes"
+          label="Mes de vencimiento"
           placeholder="01"
           v-model="expiration.month"
           maxlength="2"
@@ -52,7 +52,7 @@
           minlenght="2"
         />
         <v-text-field
-          label="Año"
+          label="Año de vencimiento"
           placeholder="26"
           v-model="expiration.year"
           maxlength="2"
