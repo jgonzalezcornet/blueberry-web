@@ -1,7 +1,7 @@
 <template>
   <v-app-bar :elevation="2" class="bg-primary">
-    <div>
-      <router-link :to="targetRoute" class="d-flex align-center gap-2">
+    <div style="z-index: 10000000000; position: relative;">
+      <router-link v-if="isLogged" to="/(main)/inicio" class="d-flex align-center gap-2">
         <img title="Blueberry icon" class="size-12 ml-4 -mr-3" src="/img/blueberry-shadow.png"/>
         <v-app-bar-title class="app-title ml-2" translate="no">Blueberry</v-app-bar-title>
       </router-link>
