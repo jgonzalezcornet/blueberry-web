@@ -31,7 +31,6 @@
     { title: 'Cobrar por link', route: '/(main)/cobrar', icon: "mdi-link-variant" },
   ];
 
-  // Function to ensure routes match even with query params
   const generateTo = (baseRoute) => {
     return { path: baseRoute, query: route.query };
   };

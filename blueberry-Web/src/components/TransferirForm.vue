@@ -110,7 +110,7 @@
 
   const validateMontoInput = (event) => {
     const key = event.key;
-    const isNumeric = /^[0-9\.]$/.test(key); // ver si dejamos el punto o ponemos coma
+    const isNumeric = /^[0-9\.]$/.test(key);
     if (!isNumeric && key !== 'Backspace' && key !== 'Tab') {
       event.preventDefault();
     }
@@ -118,7 +118,7 @@
 
   const validateNumericInput = (event) => {
     const key = event.key;
-    const isNumeric = /^[0-9]$/.test(key); // ver si dejamos el punto o ponemos coma
+    const isNumeric = /^[0-9]$/.test(key);
     if (!isNumeric && key !== 'Backspace' && key !== 'Tab') {
       event.preventDefault();
     }
@@ -126,7 +126,7 @@
 
   const validateTextInput = (event) => {
     const key = event.key;
-    const isText = /^[a-zA-Z0-9\.]$/.test(key); // Allow letters only
+    const isText = /^[a-zA-Z0-9\.]$/.test(key);
     if (!isText && key !== 'Backspace' && key !== 'Tab') {
       event.preventDefault();
     }

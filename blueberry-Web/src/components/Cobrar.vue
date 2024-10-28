@@ -59,7 +59,7 @@
 
   const validateNumericInput = (event) => {
     const key = event.key;
-    const isNumeric = /^[0-9\.]$/.test(key);  // ver si dejamos el punto o ponemos coma
+    const isNumeric = /^[0-9\.]$/.test(key); 
     if (!isNumeric && key !== 'Backspace' && key !== 'Tab') {
       event.preventDefault();
     }

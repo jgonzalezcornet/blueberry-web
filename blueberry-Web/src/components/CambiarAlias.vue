@@ -33,9 +33,9 @@
 
   const validateTextInput = (event) => {
     const key = event.key;
-    const isNumeric = /^[a-zA-Z0-9\.]$/.test(key);  // Allow digits and decimal point
+    const isNumeric = /^[a-zA-Z0-9\.]$/.test(key);
     if (!isNumeric && key !== 'Backspace' && key !== 'Tab') {
-      event.preventDefault(); // Prevent non-numeric input
+      event.preventDefault();
     }
   };
 
@@ -50,6 +50,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 2; /* por las dudas */
+    z-index: 2;
   }
 </style>

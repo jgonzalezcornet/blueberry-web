@@ -141,17 +141,15 @@
     }
 
     alias.value = newAlias;
-    popuptrigger.value = false;  // Close popup after updating alias
+    popuptrigger.value = false; 
 
     SuccessHandler({ message: "Se ha actualizado el alias del usuario." });
   };
 
-  // Computed properties for icon and dinero visibility
   const dineroIcon = computed(() =>
     isDineroVisible.value ? 'mdi-eye-outline' : 'mdi-eye-off-outline'
   );
 
-  // Snackbar and popup states
   const snackbar = ref({ show: false, message: '' });
   const popuptrigger = ref(false);
 

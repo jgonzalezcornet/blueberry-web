@@ -121,13 +121,11 @@
   const cvv = ref('');
   const isFlipped = ref(false);
 
-  // Format card number with spaces every 4 digits
   const formatCardNumber = () => {
     const cleanNumber = number.value.replace(/\D/g, '').slice(0, 16);
     number.value = cleanNumber.match(/.{1,4}/g)?.join(' ') || '';
   };
 
-  // Detect card type based on the card number prefix
   const cardType = computed(() => {
     if (/^4/.test(number.value)) return 'Visa';
     if (/^5[1-5]/.test(number.value)) return 'Mastercard';
@@ -135,7 +133,6 @@
     return 'Unknown';
   });
 
-  // Dynamically set the card logo
   const cardLogo = computed(() => {
     switch (cardType.value) {
       case 'Visa':
@@ -145,17 +142,15 @@
       case 'American Express':
         return '/img/americanexpress.png';
       default:
-        return null; // No logo for unknown cards
+        return null;
     }
   });
 
-  // Validate input as alphabetic text only
   const validateTextInput = (event) => {
     const char = String.fromCharCode(event.which);
     if (!/^[a-zA-Z\s]*$/.test(char)) event.preventDefault();
   };
 
-  // Ensure only two-digit input for month/year fields
   const validateTwoDigitInput = (event) => {
     if (!/^\d$/.test(event.key)) event.preventDefault();
   };
